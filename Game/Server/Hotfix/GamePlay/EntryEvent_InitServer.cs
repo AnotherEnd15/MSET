@@ -44,15 +44,9 @@ namespace ET.Server
             await Root.Instance.Scene.AddComponent<QuartzComponent>().Init();
 
             var scenes = await StartHelper.CreateScenes(Options.Instance.Process);
-            var existScenes = await EtcdManager.Instance.GetRangeValAsync("");
-            foreach (var v in existScenes)
-            {
-                StartSceneService.Instance.AddConfig(v.Key, v.Value);
-            }
-
             // 每个Scene创建后都有自己的依赖, 汇聚在一起 取最大值 就是进程的依赖
-            var dependency = CalculateTotalServiceDependencies(ServerConfig.Instance.Config["services_dependency"], scenes.Select(v => v.SceneType));
-
+            var dependency = CalculateTotalServiceDependencies(ServerConfig.Instance.Config["services_dependency"], 
+                scenes.Select(v => v.SceneType));
             while (true)
             {
                 int enoughCount = 0;
