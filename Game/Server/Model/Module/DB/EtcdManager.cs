@@ -124,6 +124,7 @@ public class EtcdManager : Singleton<EtcdManager>
     
     private void OnWatchSceneChanged(WatchResponse response)
     {
+        Log.GetLogger().Information($"Watch Scene Changed {response}");
         foreach (var evt in response.Events)
         {
             Log.GetLogger().Information($"Watch Scene {evt.Kv.Key.ToStringUtf8()} {evt.Type}");
