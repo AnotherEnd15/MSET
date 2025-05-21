@@ -1,4 +1,4 @@
-﻿namespace ET
+namespace ET
 {
     [SceneController(SceneType.DBCache)]
     public class SceneController_ObjectCache : ISceneController

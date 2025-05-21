@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 namespace ET;
@@ -50,6 +50,7 @@ public class StartSceneService
         if (!ZoneScenes.ContainsKey(zoneKey))
             ZoneScenes[zoneKey] = new();
         ZoneScenes[zoneKey].Add(config);
+        Log.GetLogger().Information($"add scene config: {config.Zone} {config.SceneType}");
     }
 
     public void RemoveConfig(string key)

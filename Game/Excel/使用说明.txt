@@ -1,6 +1,6 @@
 本导表工具基于luban改造
 https://luban.doc.code-philosophy.com/
-修改的源码位于Game\Tools\luban-main\src
+修改的源码位于Game\ThridParty\luban-main\src
 
 各文件夹作用:
 Datas: 存放所有配置表

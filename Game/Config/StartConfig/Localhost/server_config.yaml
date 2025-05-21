@@ -7,3 +7,9 @@ etcd:
   endpoints: "http://localhost:2379"
 redis:
   connect: "localhost:6379"
+# 服务之间的依赖 __Base代表公共依赖
+services_dependency:
+  "__Base":
+    "DBCache": 1
+  "Game":
+    "Gate" : 1

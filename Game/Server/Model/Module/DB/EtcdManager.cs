@@ -62,6 +62,7 @@ public class EtcdManager : Singleton<EtcdManager>
             await TimerComponent.Instance.WaitAsync(2000);
             return;
         }
+        Log.GetLogger().Information($"lease success: {response.ID}");
         this.LeaseId = response.ID;
         this.HealthTimer = TimerComponent.Instance.NewRepeatedTimer(6000, TimerInvokeType.EtcdHealth, this);
         await this.WatchRangeAsync(EtcdHelper.EtcdKeyPrefix, this.OnWatchSceneChanged);
@@ -125,6 +126,7 @@ public class EtcdManager : Singleton<EtcdManager>
     {
         foreach (var evt in response.Events)
         {
+            Log.GetLogger().Information($"Watch Scene {evt.Kv.Key.ToStringUtf8()} {evt.Type}");
             string key = evt.Kv.Key.ToStringUtf8();
             if (evt.Type == Event.Types.EventType.Put)
             {
