@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Robot", "Robot\Robot.csproj", "{D79ED357-5FD6-49CB-90CD-93F5ACC7BA6B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Model", "Model\Model.csproj", "{CFC59360-DEBA-418B-BBDC-88D080555441}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hotfix", "Hotfix\Hotfix.csproj", "{BD0A31AF-E9FA-4DD1-8AB5-3BC301ADD3CB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D79ED357-5FD6-49CB-90CD-93F5ACC7BA6B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D79ED357-5FD6-49CB-90CD-93F5ACC7BA6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D79ED357-5FD6-49CB-90CD-93F5ACC7BA6B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D79ED357-5FD6-49CB-90CD-93F5ACC7BA6B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CFC59360-DEBA-418B-BBDC-88D080555441}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CFC59360-DEBA-418B-BBDC-88D080555441}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CFC59360-DEBA-418B-BBDC-88D080555441}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CFC59360-DEBA-418B-BBDC-88D080555441}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BD0A31AF-E9FA-4DD1-8AB5-3BC301ADD3CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD0A31AF-E9FA-4DD1-8AB5-3BC301ADD3CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BD0A31AF-E9FA-4DD1-8AB5-3BC301ADD3CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BD0A31AF-E9FA-4DD1-8AB5-3BC301ADD3CB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

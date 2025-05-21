@@ -1,0 +1,24 @@
+本导表工具基于luban改造
+https://luban.doc.code-philosophy.com/
+修改的源码位于Game\Tools\luban-main\src
+
+各文件夹作用:
+Datas: 存放所有配置表
+    __tables__.xlsx 里面需要定义所有要导出的表,以及这些表是双端,还是单端(c/s),主键是第一列id字段?还是复合主键
+    StartConfig/StartConfig_xxx.xlsx 对应于起服配置 相关表在Datas/StartConfig中
+Defines: 存放所有枚举/复杂数据结构定义 支持父子类的抽象结构
+Json: 当导表包含json时,Datas中非起服配置的表的数据会生成对应的json方便排查问题
+
+各bat作用:
+ 
+__导表.bat 最常用的bat 会生成除了起服配置之外的数据 格式是二进制
+
+__导表_生成json(调试用).bat 对比上一个 会额外生成json数据
+
+__生成_数值+多语言定义.bat 修改数值定义表/多语言表后 需要点一下 再点导表
+
+各conf文件:
+定义导出数据源 除了工具开发和维护人员 不用修改
+
+起服相关配置在Game\Config\StartConfig中
+

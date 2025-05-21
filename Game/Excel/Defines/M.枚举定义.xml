@@ -1,0 +1,47 @@
+<module name="">
+    <enum name="UnitType">
+        <var name="None" value="0" />
+        <var name="Player" value="1" />
+        <var name="Monster" value="2" />
+    </enum>
+
+    <enum name="MonsterType" comment="怪物类型">
+        <var name="None" value="0" />
+        <var name="Normal" value="1" comment="普通怪" />
+        <var name="Elite" value="2" comment="精英怪" />
+        <var name="Boss" value="10" />
+    </enum>
+
+
+    <enum name="TimeScheduleType" comment="定时调度任务类型">
+        <var name="None"/>
+        <var name="Daily0" comment="每日0点" />
+        <var name="Weekly0" comment="每周周一0点" />
+        <var name="Hour0" comment="每小时0分0秒" />
+    </enum>
+
+    <enum name="TimeRefreshType" comment="刷新间隔类型">
+        <var name="None" />
+        <var name="Hour"/>
+        <var name="Day" />
+        <var name="Week" />
+        <var name="Month" />
+        <var name="Year" />
+    </enum>
+
+
+    <enum name="CurrencyType">
+        <var name="Gold" value="0" comment="金币" />
+        <var name="Gem" value="1" comment="钻石" />
+    </enum>
+
+    <enum name="ConditionType" comment="条件类型" >
+        <var name="TeamLevel" comment="队伍等级" />
+    </enum>
+    
+    <enum name="LogicType">
+        <var name="And" value="0" />
+        <var name="Or" value="1" />
+    </enum>
+
+</module>

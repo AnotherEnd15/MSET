@@ -1,0 +1,42 @@
+using Luban;
+
+{{namespace_with_grace_begin __namespace}}
+public partial class {{__name}}
+{
+
+    public {{__name}}(System.Func<string, ByteBuf> loader)
+    {
+        {{~for table in __tables ~}}
+        new {{table.full_name}}().Load(loader("{{table.full_name}}"));
+        {{~end~}}
+        ResolveRef();
+        OnDeserialize();
+    }
+    
+    private void ResolveRef()
+    {
+        {{~for table in __tables ~}}
+        {{format_property_name __code_style table.name}}.Instance.ResolveRef(this);
+        {{~end~}}
+    }
+    
+    private void OnDeserialize()
+    {
+        {{~for table in __tables ~}}
+        {{format_property_name __code_style table.name}}.Instance.OnDeserialize();
+        {{~end~}}
+    }
+}
+
+public abstract class CategoryBase
+{
+    public virtual void OnDeserialize()
+    {
+        
+    }
+    
+    public abstract void Load(ByteBuf _buf);
+}
+
+
+{{namespace_with_grace_end __namespace}}

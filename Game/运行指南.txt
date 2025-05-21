@@ -1,0 +1,4 @@
+1. 如果是本台机子第一次启动, [管理员]运行一次"刷新http指令.bat"
+2. 修改Config/StartConfig/Localhost/server_config.yaml中的参数, 尤其是数据库配置相关的
+3. 运行run_db.bat. 后续关服重启, 只要弹出的两个窗口没关闭, 就不用再次运行这个bat.
+3. 打开Server/Server.sln, 用你的ide运行App项目即可

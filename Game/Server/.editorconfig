@@ -1,0 +1,224 @@
+# 如果要从更高级别的目录继承 .editorconfig 设置，请删除以下行
+root = true
+
+# c# 文件
+[*.cs]
+charset = utf-8
+
+#### Core EditorConfig 选项 ####
+
+# 缩进和间距
+indentsize = 4
+indentstyle = space
+tabwidth = 4
+
+# 新行首选项
+endofline = crlf
+insertfinalnewline = false
+
+#### .NET 编码约定 ####
+
+# 组织 Using
+dotnetseparateimportdirectivegroups = false
+dotnetsortsystemdirectivesfirst = false
+fileheadertemplate = unset
+
+# this. 和 Me. 首选项
+dotnetstylequalificationforevent = false
+dotnetstylequalificationforfield = false
+dotnetstylequalificationformethod = false
+dotnetstylequalificationforproperty = false
+
+# 语言关键字与 bcl 类型首选项
+dotnetstylepredefinedtypeforlocalsparametersmembers = true
+dotnetstylepredefinedtypeformemberaccess = true
+
+# 括号首选项
+dotnetstyleparenthesesinarithmeticbinaryoperators = alwaysforclarity
+dotnetstyleparenthesesinotherbinaryoperators = alwaysforclarity
+dotnetstyleparenthesesinotheroperators = neverifunnecessary
+dotnetstyleparenthesesinrelationalbinaryoperators = alwaysforclarity
+
+# 修饰符首选项
+dotnetstylerequireaccessibilitymodifiers = fornoninterfacemembers
+
+# 表达式级首选项
+dotnetstylecoalesceexpression = true
+dotnetstylecollectioninitializer = true
+dotnetstyleexplicittuplenames = true
+dotnetstylenamespacematchfolder = true
+dotnetstylenullpropagation = true
+dotnetstyleobjectinitializer = true
+dotnetstyleoperatorplacementwhenwrapping = beginningofline
+dotnetstylepreferautoproperties = true
+dotnetstyleprefercompoundassignment = true
+dotnetstylepreferconditionalexpressionoverassignment = true
+dotnetstylepreferconditionalexpressionoverreturn = true
+dotnetstylepreferinferredanonymoustypemembernames = true
+dotnetstylepreferinferredtuplenames = true
+dotnetstylepreferisnullcheckoverreferenceequalitymethod = true
+dotnetstyleprefersimplifiedbooleanexpressions = true
+dotnetstyleprefersimplifiedinterpolation = true
+
+# 字段首选项
+dotnetstylereadonlyfield = true
+
+# 参数首选项
+dotnetcodequalityunusedparameters = all
+
+# 禁止显示首选项
+dotnetremoveunnecessarysuppressionexclusions = none
+
+# 新行首选项
+dotnetstyleallowmultipleblanklinesexperimental = true
+dotnetstyleallowstatementimmediatelyafterblockexperimental = true
+
+#### c# 编码约定 ####
+
+# var 首选项
+csharpstylevarelsewhere = false
+csharpstylevarforbuiltintypes = false
+csharpstylevarwhentypeisapparent = false
+
+# Expression-bodied 成员
+csharpstyleexpressionbodiedaccessors = true
+csharpstyleexpressionbodiedconstructors = false
+csharpstyleexpressionbodiedindexers = true
+csharpstyleexpressionbodiedlambdas = true
+csharpstyleexpressionbodiedlocalfunctions = false
+csharpstyleexpressionbodiedmethods = false
+csharpstyleexpressionbodiedoperators = false
+csharpstyleexpressionbodiedproperties = true
+
+# 模式匹配首选项
+csharpstylepatternmatchingoveraswithnullcheck = true
+csharpstylepatternmatchingoveriswithcastcheck = true
+csharpstylepreferextendedpropertypattern = true
+csharpstyleprefernotpattern = true
+csharpstylepreferpatternmatching = true
+csharpstylepreferswitchexpression = true
+
+# Null 检查首选项
+csharpstyleconditionaldelegatecall = true
+csharpstylepreferparameternullchecking = true
+
+# 修饰符首选项
+csharppreferstaticlocalfunction = true
+csharppreferredmodifierorder = public, private, protected, internal, static, extern, new, virtual, abstract, sealed, override, readonly, unsafe, volatile, async
+
+# 代码块首选项
+csharppreferbraces = true
+csharpprefersimpleusingstatement = true
+csharpstylenamespacedeclarations = blockscoped
+csharpstyleprefermethodgroupconversion = true
+
+# 表达式级首选项
+csharpprefersimpledefaultexpression = true
+csharpstyledeconstructedvariabledeclaration = true
+csharpstyleimplicitobjectcreationwhentypeisapparent = true
+csharpstyleinlinedvariabledeclaration = true
+csharpstylepreferindexoperator = true
+csharpstylepreferlocaloveranonymousfunction = true
+csharpstyleprefernullcheckovertypecheck = true
+csharpstylepreferrangeoperator = true
+csharpstyleprefertupleswap = true
+csharpstylethrowexpression = true
+csharpstyleunusedvalueassignmentpreference = discardvariable
+csharpstyleunusedvalueexpressionstatementpreference = discardvariable
+
+# "using" 指令首选项
+csharpusingdirectiveplacement = outsidenamespace
+
+# 新行首选项
+csharpstyleallowblanklineaftercoloninconstructorinitializerexperimental = true
+csharpstyleallowblanklinesbetweenconsecutivebracesexperimental = true
+csharpstyleallowembeddedstatementsonsamelineexperimental = true
+
+#### C# 格式规则 ####
+
+# 新行首选项
+csharpnewlinebeforecatch = true
+csharpnewlinebeforeelse = true
+csharpnewlinebeforefinally = true
+csharpnewlinebeforemembersinanonymoustypes = true
+csharpnewlinebeforemembersinobjectinitializers = true
+csharpnewlinebeforeopenbrace = all
+csharpnewlinebetweenqueryexpressionclauses = true
+
+# 缩进首选项
+csharpindentblockcontents = true
+csharpindentbraces = false
+csharpindentcasecontents = true
+csharpindentcasecontentswhenblock = true
+csharpindentlabels = onelessthancurrent
+csharpindentswitchlabels = true
+
+# 空格键首选项
+csharpspaceaftercast = false
+csharpspaceaftercolonininheritanceclause = true
+csharpspaceaftercomma = true
+csharpspaceafterdot = false
+csharpspaceafterkeywordsincontrolflowstatements = true
+csharpspaceaftersemicoloninforstatement = true
+csharpspacearoundbinaryoperators = beforeandafter
+csharpspacearounddeclarationstatements = false
+csharpspacebeforecolonininheritanceclause = true
+csharpspacebeforecomma = false
+csharpspacebeforedot = false
+csharpspacebeforeopensquarebrackets = false
+csharpspacebeforesemicoloninforstatement = false
+csharpspacebetweenemptysquarebrackets = false
+csharpspacebetweenmethodcallemptyparameterlistparentheses = false
+csharpspacebetweenmethodcallnameandopeningparenthesis = false
+csharpspacebetweenmethodcallparameterlistparentheses = false
+csharpspacebetweenmethoddeclarationemptyparameterlistparentheses = false
+csharpspacebetweenmethoddeclarationnameandopenparenthesis = false
+csharpspacebetweenmethoddeclarationparameterlistparentheses = false
+csharpspacebetweenparentheses = false
+csharpspacebetweensquarebrackets = false
+
+# 包装首选项
+csharppreservesinglelineblocks = true
+csharppreservesinglelinestatements = true
+
+#### 命名样式 ####
+
+# 命名规则
+
+dotnetnamingrule.interfaceshouldbebeginswithi.severity = suggestion
+dotnetnamingrule.interfaceshouldbebeginswithi.symbols = interface
+dotnetnamingrule.interfaceshouldbebeginswithi.style = beginswithi
+
+dotnetnamingrule.typesshouldbepascalcase.severity = suggestion
+dotnetnamingrule.typesshouldbepascalcase.symbols = types
+dotnetnamingrule.typesshouldbepascalcase.style = pascalcase
+
+dotnetnamingrule.nonfieldmembersshouldbepascalcase.severity = suggestion
+dotnetnamingrule.nonfieldmembersshouldbepascalcase.symbols = nonfieldmembers
+dotnetnamingrule.nonfieldmembersshouldbepascalcase.style = pascalcase
+
+# 符号规范
+
+dotnetnamingsymbols.interface.applicablekinds = interface
+dotnetnamingsymbols.interface.applicableaccessibilities = public, internal, private, protected, protectedinternal, privateprotected
+dotnetnamingsymbols.interface.requiredmodifiers =
+
+dotnetnamingsymbols.types.applicablekinds = class, struct, interface, enum
+dotnetnamingsymbols.types.applicableaccessibilities = public, internal, private, protected, protectedinternal, privateprotected
+dotnetnamingsymbols.types.requiredmodifiers =
+
+dotnetnamingsymbols.nonfieldmembers.applicablekinds = property, event, method
+dotnetnamingsymbols.nonfieldmembers.applicableaccessibilities = public, internal, private, protected, protectedinternal, privateprotected
+dotnetnamingsymbols.nonfieldmembers.requiredmodifiers =
+
+# 命名样式
+
+dotnetnamingstyle.pascalcase.requiredprefix =
+dotnetnamingstyle.pascalcase.requiredsuffix =
+dotnetnamingstyle.pascalcase.wordseparator =
+dotnetnamingstyle.pascalcase.capitalization = pascalcase
+
+dotnetnamingstyle.beginswithi.requiredprefix = I
+dotnetnamingstyle.beginswithi.requiredsuffix =
+dotnetnamingstyle.beginswithi.wordseparator =
+dotnetnamingstyle.beginswithi.capitalization = pascalcase

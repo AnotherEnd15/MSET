@@ -1,0 +1,43 @@
+module ET.Proto;
+
+//ResponseType Game2C_GMCommandResponse
+message C2Game_GMCommandRequest // IActorPlayerRequest
+{
+	string Command = 2;
+	repeated string ParamList = 3;
+}
+message Game2C_GMCommandResponse // IActorPlayerResponse
+{
+	
+}
+
+//ResponseType Game2C_GetGMCommandDefinesResponse
+message C2Game_GetGMCommandDefinesRequest // IActorPlayerRequest
+{
+	
+}
+message Game2C_GetGMCommandDefinesResponse // IActorPlayerResponse
+{
+	map<string,string> Command2Defines = 4;
+}
+
+//ResponseType Game2C_ReloadConfigResponse
+message C2Game_ReloadConfigRequest // IActorPlayerRequest
+{
+
+}
+message Game2C_ReloadConfigResponse // IActorPlayerResponse
+{
+
+}
+
+//ResponseType Game2C_LogoutResponse
+message C2Game_LogoutRequest // IActorPlayerRequest
+{
+
+}
+
+message Game2C_LogoutResponse // IActorPlayerResponse
+{
+
+}

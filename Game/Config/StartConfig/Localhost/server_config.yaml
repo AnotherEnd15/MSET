@@ -1,0 +1,9 @@
+mongo_url: "mongodb://localhost:27017"
+# {user_name}会被解析为当前计算机的用户名, 不带大括号则视为普通字符串
+# 这个值会被使用为mongo的database名, redis的所有key自带的前缀等
+host_namespace: "{user_name}"
+# etcd
+etcd:
+  endpoints: "http://localhost:2379"
+redis:
+  connect: "localhost:6379"

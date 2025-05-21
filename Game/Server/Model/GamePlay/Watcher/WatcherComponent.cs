@@ -1,0 +1,14 @@
+using System.Collections.Generic;
+using System.Diagnostics;
+
+namespace ET.Server
+{
+    [ComponentOf(typeof(Scene))]
+    public class WatcherComponent: Entity, IAwake, IDestroy
+    {
+        public static WatcherComponent Instance { get; set; }
+        public int InitCompletedCount { get; set; }
+
+        public readonly Dictionary<int, Process> Processes = new Dictionary<int, Process>();
+    }
+}

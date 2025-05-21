@@ -1,0 +1,48 @@
+using Luban;
+using System.Text.Json;
+
+{{namespace_with_grace_begin __namespace}}
+public partial class {{__name}}
+{
+    {{~for table in __tables ~}}
+{{~if table.comment != '' ~}}
+    /// <summary>
+    /// {{escape_comment table.comment}}
+    /// </summary>
+{{~end~}}
+    public {{table.full_name}} {{format_property_name __code_style table.name}} {get; }
+    {{~end~}}
+
+    public {{__name}}(System.Func<string, JsonElement> loader)
+    {
+        {{~for table in __tables ~}}
+        {{format_property_name __code_style table.name}} = new {{table.full_name}}(loader("{{table.full_name}}"));
+        {{~end~}}
+        ResolveRef();
+        OnDeserialize();
+    }
+    
+    private void ResolveRef()
+    {
+        {{~for table in __tables ~}}
+        {{format_property_name __code_style table.name}}.ResolveRef(this);
+        {{~end~}}
+    }
+    
+    private void OnDeserialize()
+    {
+        {{~for table in __tables ~}}
+        {{format_property_name __code_style table.name}}.OnDeserialize();
+        {{~end~}}
+    }
+}
+
+public class CategoryBase
+{
+    public virtual void OnDeserialize()
+    {
+        
+    }
+}
+
+{{namespace_with_grace_end __namespace}}

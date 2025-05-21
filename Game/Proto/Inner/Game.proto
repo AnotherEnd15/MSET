@@ -1,0 +1,19 @@
+module ET.Proto;
+
+//ResponseType Game2G_EnterGameResponse
+message G2Game_EnterGameRequest // IActorRequest
+{
+	int32 Uid = 2;
+	int64 GateActorId = 3;
+	int64 ClientSessionId = 4;
+}
+
+message Game2G_EnterGameResponse // IActorResponse
+{
+	int64 PlayerActorId = 4;
+}
+
+message G2Game_PlayerSessionClose // IActorMessage
+{
+	int64 SessionId = 1;
+}

@@ -1,0 +1,34 @@
+# 此文件为自动生成，请勿手动修改
+processConfigs:
+  1:
+    process: 1
+    ip: 127.0.0.1:20000
+  2:
+    process: 2
+    ip: 127.0.0.1:20001
+sceneConfigs:
+- process: 1
+  sceneType: Gate
+  outerPort: 10000
+  zone: 1
+  tags: []
+- process: 1
+  sceneType: HTTP
+  outerPort: 11000
+  zone: 1
+  tags: []
+- process: 1
+  sceneType: DBCache
+  outerPort: 0
+  zone: 1
+  tags: []
+- process: 1
+  sceneType: Game
+  outerPort: 0
+  zone: 1
+  tags: []
+- process: 1
+  sceneType: Game
+  outerPort: 0
+  zone: 1
+  tags: []

@@ -1,0 +1,53 @@
+module ET.Proto;
+
+//ResponseType EntitySaveResponse
+message EntitySaveRequest // IActorRequest
+{
+	int32 Zone = 2;
+	repeated byte[] Entitys = 3;
+	repeated string CollectionNames = 4;
+	bool SaveImd = 5;
+	int64 SendTime = 6;
+}
+message EntitySaveResponse //IActorResponse
+{
+
+}
+
+//ResponseType QueryEntityResponse
+message QueryEntityRequest // IActorRequest
+{
+
+	int32 Zone = 2;
+	repeated string TypeList = 3;
+	repeated long IdList = 4;
+	repeated string CollectionNames = 5;
+}
+
+message QueryEntityResponse // IActorResponse
+{
+	repeated byte[] EntityList = 4;
+}
+//ResponseType DeleteEntityResponse
+message DeleteEntityRequest // IActorRequest
+{
+	int32 Zone = 2;
+	long Id = 3;
+	string Collection = 4;
+	string Type = 5;	
+	bool DeleteFromDB = 6;
+}
+message DeleteEntityResponse // IActorResponse
+{
+
+}
+
+//ResponseType QuerySavingCountResponse
+message QuerySavingCountRequest // IActorRequest
+{
+ 
+}
+message QuerySavingCountResponse // IActorResponse
+{
+    int32 Count = 1;
+}

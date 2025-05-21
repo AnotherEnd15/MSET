@@ -1,0 +1,29 @@
+{
+    "name": "Unity.Loader",
+    "rootNamespace": "ET",
+    "references": [
+        "Unity.ThirdParty",
+        "HybridCLR.Runtime",
+        "YooAsset",
+        "Unity.Core",
+        "Animancer",
+        "Cinemachine",
+        "FairyGUI",
+        "Unity.TextMeshPro",
+        "Wx",
+        "ThinkingAnalytics",
+        "MemoryPack",
+        "Unity.2D.IK.Runtime"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": true,
+    "overrideReferences": false,
+    "precompiledReferences": [
+        ""
+    ],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

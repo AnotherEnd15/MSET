@@ -1,0 +1,60 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net7.0</TargetFramework>
+        <Nullable>disable</Nullable>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+      <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+      <DefineConstants>TRACE;DOTNET;UNITY_DOTSPLAYER</DefineConstants>
+      <OutputPath>..\..\RobotBin</OutputPath>
+    </PropertyGroup>
+
+    <ItemGroup>
+
+        <Compile Include="..\..\Unity\Assets\Scripts\ThirdParty\ETTask\**\*.cs">
+            <Link>ETTask/%(RecursiveDir)%(FileName)%(Extension)</Link>
+        </Compile>
+
+        <Compile Include="..\..\Unity\Assets\Scripts\ThirdParty\Kcp\Kcp.cs">
+            <Link>Kcp\Kcp.cs</Link>
+        </Compile>
+
+        <Compile Include="..\..\Unity\Assets\Scripts\ThirdParty\Recast\Recast.cs">
+            <Link>Recast\Recast.cs</Link>
+        </Compile>
+
+        <Compile Include="..\..\Unity\Library\PackageCache\com.unity.mathematics*\Unity.Mathematics\**\*.cs">
+            <Link>Unity.Mathematics/%(RecursiveDir)%(FileName)%(Extension)</Link>
+        </Compile>
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="CommandLineParser" Version="2.8.0" />
+        <PackageReference Include="MongoDB.Driver" Version="2.17.1" />
+        <PackageReference Include="Microsoft.CodeAnalysis.Common" Version="4.0.1" />
+        <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.0.1" />
+    </ItemGroup>
+    
+    <ItemGroup>
+      <None Update="kcp.dll">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+      <None Update="libkcp.so">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+      <None Update="libRecastDll.so">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+      <None Update="RecastDll.dll">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Update="runtimes\**\*">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+    </ItemGroup>
+</Project>

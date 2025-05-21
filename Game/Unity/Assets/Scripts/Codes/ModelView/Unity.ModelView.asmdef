@@ -1,0 +1,27 @@
+{
+    "name": "Unity.ModelView",
+    "rootNamespace": "ET",
+    "references": [
+        "Unity.Model",
+        "Unity.ThirdParty",
+        "Unity.Core",
+        "Unity.Loader",
+        "YooAsset",
+        "FairyGUI",
+        "Cinemachine",
+        "MemoryPack",
+        "Animancer",
+        "Unity.TextMeshPro",
+        "Wx",
+        "Luban"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": true,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": false,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

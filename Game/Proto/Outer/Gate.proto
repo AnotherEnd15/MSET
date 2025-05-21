@@ -1,0 +1,84 @@
+module ET.Proto;
+
+message HttpGetRouterResponse
+{
+	repeated string Realms = 1;
+	repeated string Routers = 2;
+}
+
+message RouterSync
+{
+	uint32 ConnectId = 1;
+	string Address = 2;
+}
+
+//ResponseType G2C_LoginResponse
+message C2G_LoginRequest // IRequest
+{
+	string Account = 2;  // 帐号
+	int GameVersion = 5; // 客户端版本 低版本的不会允许登录
+}
+
+message G2C_LoginResponse // IResponse
+{
+
+}
+
+//ResponseType G2C_EnterGame
+message C2G_EnterGame // IRequest
+{
+
+	int64 SceneInstanceId = 2;
+}
+
+message G2C_EnterGame // IResponse
+{
+	// 自己unitId
+	int64 MyId = 4;
+}
+
+//ResponseType G2C_ReconnectResponse
+message C2G_ReconnectRequest // IRequest
+{
+	string Code = 2;
+	string OpenId = 3;
+}
+
+message G2C_ReconnectResponse // IResponse
+{
+
+}
+
+//ResponseType G2C_Ping
+message C2G_Ping // IRequest
+{
+
+}
+
+message G2C_Ping // IResponse
+{
+	int64 Time = 4;
+}
+
+
+message GatePlayerInfo
+{
+	int32 Zone = 1;
+	int64 UnitId = 2;
+	int32 Level = 3;
+	string Name = 4;
+	long LastLoginTime = 5;
+	string ProfilePic = 6;
+	int32 ProfileFrame = 7;
+}
+
+//ResponseType G2C_Reload
+message C2G_Reload // IRequest
+{
+	string Account = 2;
+	string Password = 3;
+}
+
+message G2C_Reload // IResponse
+{
+}

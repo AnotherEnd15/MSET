@@ -1,0 +1,30 @@
+module ET.Proto;
+
+
+//ResponseType Any2Gate_QueryOnlineAccountsResponse
+message Any2Gate_QueryOnlineAccountsRequest // IActorRequest
+{
+
+}
+
+message Any2Gate_QueryOnlineAccountsResponse // IActorResponse
+{
+	int32 Count = 4;	
+}
+
+message GM2Gate_KickOutPlayer // IActorMessage
+{
+	string OpenId = 1;
+}
+
+message PlayerLoginInfo
+{
+	string OpenId = 1;
+	string SessionKey = 2;
+	string Code = 3; // 临时登录凭证
+}
+
+message Game2Gate_CloseSession // IActorMessage
+{
+
+}

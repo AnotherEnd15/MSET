@@ -1,0 +1,37 @@
+<module name="">
+    <bean name="CFloat" valueType="1">
+        <var name="Value" type="float" comment="TODO: 48.16的定点数 方便策划配小数"/>
+    </bean>
+    <bean name="CVector2" valueType="1" sep=",">
+        <var name="x" type="CFloat"/>
+        <var name="y" type="CFloat"/>
+    </bean>
+    <bean name="CVector3" valueType="1" sep=",">
+        <var name="x" type="CFloat"/>
+        <var name="y" type="CFloat"/>
+        <var name="z" type="CFloat"/>
+    </bean>
+    <bean name="CVector4" valueType="1" sep=",">
+        <var name="x" type="CFloat"/>
+        <var name="y" type="CFloat"/>
+        <var name="z" type="CFloat"/>
+        <var name="w" type="CFloat"/>
+    </bean>
+
+    <enum name="CfgCompareType" comment="比较类型">
+        <var name="EQ"  comment="等于" />
+        <var name="GE"  comment="大于等于" />
+        <var name="GT"  comment="大于" />
+        <var name="LE"  comment="小于等于" />
+        <var name="LT"  comment="小于" />
+        <var name="NE"  comment="不等于" />
+        <mapper target="client" codeTarget="cs-bin">
+            <option name="type" value="ET.CompareType" />
+        </mapper>
+        <mapper target="server" codeTarget="cs-bin">
+            <option name="type" value="ET.CompareType" />
+        </mapper>
+    </enum>
+
+
+</module>

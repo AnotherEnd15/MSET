@@ -1,0 +1,9 @@
+﻿{
+  "$schema": "http://json.schemastore.org/launchsettings.json",
+  "profiles": {
+    "Robot": {
+      "commandName": "Project",
+      "commandLineArgs": "--Develop=1 --LogLevel=0 --Console=1"
+    }
+  }
+}

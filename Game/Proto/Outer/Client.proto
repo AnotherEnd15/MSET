@@ -1,0 +1,17 @@
+module ET.Proto;
+
+// 关闭服务器倒计时 倒计时开始的时候也应该关闭入口
+message G2C_CloseServer // IMessage
+{
+	int64 CloseTime = 1; // 客户端到了时间后直接退出到主界面即可
+}
+
+message G2C_RepeatLogin // IMessage
+{
+	
+}
+
+message G2C_EnterGameResult // IMessage
+{
+    int32 Error = 1;
+}

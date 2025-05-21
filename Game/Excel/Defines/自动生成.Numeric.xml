@@ -1,0 +1,29 @@
+<!-- 本文件自动生成,不要手动修改 -->
+<module name="">
+   <enum name="NumericType">
+		<var name="None" value="0" comment="特殊用途" />
+		<var name="HP" value="1001" comment="当前血量" />
+		<var name="MaxHP" value="1002" comment="最大血量" />
+		<var name="MaxHP_Base" value="10021" comment="最大血量" />
+		<var name="MaxHP_Add" value="10022"  />
+		<var name="MaxHP_Pct" value="10023" />
+		<var name="MoveSpeed" value="1003" comment="移动速度" />
+		<var name="MoveSpeed_Base" value="10031" comment="移动速度" />
+		<var name="MoveSpeed_Add" value="10032"  />
+		<var name="MoveSpeed_Pct" value="10033" />
+		<var name="Level" value="1004" comment="等级" />
+		<var name="ATK" value="1005" comment="攻击力" />
+		<var name="ATK_Base" value="10051" comment="攻击力" />
+		<var name="ATK_Add" value="10052"  />
+		<var name="ATK_Pct" value="10053" />
+		<var name="DEF" value="1006" comment="防御力" />
+		<var name="DEF_Base" value="10061" comment="防御力" />
+		<var name="DEF_Add" value="10062"  />
+		<var name="DEF_Pct" value="10063" />
+		<var name="AttackSpeed" value="1007" comment="攻速" />
+		<var name="AttackSpeed_Base" value="10071" comment="攻速" />
+		<var name="AttackSpeed_Add" value="10072"  />
+		<var name="AttackSpeed_Pct" value="10073" />
+
+    </enum>
+</module>
