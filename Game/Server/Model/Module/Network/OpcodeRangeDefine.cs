@@ -7,8 +7,6 @@ namespace ET
 
         // 10001-20000 内网
         public const ushort InnerMaxOpcode = 20000;
-
-        public const ushort OuterGMToolMaxOpCode = 22000;
         
         public const ushort MaxOpcode = 60000;
     }

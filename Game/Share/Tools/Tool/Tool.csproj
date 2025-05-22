@@ -21,11 +21,9 @@
     </ItemGroup>
 
     <ItemGroup>
+        <Compile Include="..\..\..\Server\Model\Module\Network\OpcodeRangeDefine.cs" Link="Proto2CS\OpcodeRangeDefine.cs" />
         <Compile Include="..\..\..\Server\Model\Module\Scene\StartSceneConfig.cs">
           <Link>StartScene\StartSceneConfig.cs</Link>
-        </Compile>
-        <Compile Include="..\..\..\Unity\Assets\Scripts\Codes\Model\Share\Module\Network\OpcodeRangeDefine.cs">
-            <Link>Module\Message\OpcodeRangeDefine.cs</Link>
         </Compile>
     </ItemGroup>
 

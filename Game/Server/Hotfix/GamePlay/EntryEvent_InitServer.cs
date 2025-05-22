@@ -22,7 +22,6 @@ namespace ET.Server
             Root.Instance.Scene.AddComponent<NetThreadComponent>();
             Root.Instance.Scene.AddComponent<OpcodeTypeComponent>();
             Root.Instance.Scene.AddComponent<MessageDispatcherComponent>();
-            Root.Instance.Scene.AddComponent<ClientSceneManagerComponent>();
             Root.Instance.Scene.AddComponent<DBManagerComponent>();
 
 
