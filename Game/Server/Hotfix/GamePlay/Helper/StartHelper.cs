@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using ET.Server;
@@ -42,8 +42,8 @@ public static class StartHelper
             {
                 continue;
             }
-            var id = IdGenerater.Instance.GenerateId();
-            var instanceId = IdGenerater.Instance.GenerateInstanceId();
+            var id = IdGenerater.Instance.GenerateId(Options.Instance.Process);
+            var instanceId = IdGenerater.Instance.GenerateInstanceId(Options.Instance.Process);
             var name = $"{v.SceneType}_{instanceId}"; // TODO: start scene中新增name的配置
             var sceneType = Enum.Parse<SceneType>(v.SceneType);
             var scene = await SceneFactory.CreateStartScene(Root.Instance.Scene, id, instanceId, v.Zone, name, sceneType, v);

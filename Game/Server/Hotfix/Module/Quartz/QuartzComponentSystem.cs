@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Specialized;
 using Quartz;
 using Quartz.Impl;
@@ -43,7 +43,7 @@ namespace ET.Module.Quartz
         
         public static async ETTask<long> AddCronJob(this QuartzComponent self,Entity entity, string cron)
         {
-            var jobId = IdGenerater.Instance.GenerateInstanceId();
+            var jobId = IdGenerater.Instance.GenerateInstanceId(Options.Instance.Process);
             var jobDetail = JobBuilder.Create<TimeScheduleJob>()
                     .UsingJobData("InstanceId", entity.InstanceId)
                     .UsingJobData("JobId", jobId)

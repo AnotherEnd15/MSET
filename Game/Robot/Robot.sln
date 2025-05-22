@@ -1,10 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35931.197 d17.13
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Robot", "Robot\Robot.csproj", "{D79ED357-5FD6-49CB-90CD-93F5ACC7BA6B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Model", "Model\Model.csproj", "{CFC59360-DEBA-418B-BBDC-88D080555441}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hotfix", "Hotfix\Hotfix.csproj", "{BD0A31AF-E9FA-4DD1-8AB5-3BC301ADD3CB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ETCore", "..\Share\ETCore\ETCore.csproj", "{7E963FD4-AACE-DD79-DDDD-D086834F921A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -24,5 +29,12 @@ Global
 		{BD0A31AF-E9FA-4DD1-8AB5-3BC301ADD3CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BD0A31AF-E9FA-4DD1-8AB5-3BC301ADD3CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BD0A31AF-E9FA-4DD1-8AB5-3BC301ADD3CB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7E963FD4-AACE-DD79-DDDD-D086834F921A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7E963FD4-AACE-DD79-DDDD-D086834F921A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7E963FD4-AACE-DD79-DDDD-D086834F921A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7E963FD4-AACE-DD79-DDDD-D086834F921A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 EndGlobal

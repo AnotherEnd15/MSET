@@ -1,7 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net7.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
     </PropertyGroup>
@@ -10,14 +9,6 @@
       <DefineConstants>TRACE;ROBOT;</DefineConstants>
       <OutputPath>..\..\RobotBin\</OutputPath>
     </PropertyGroup>
-
-
-    <ItemGroup>
-        <Compile Include="..\..\Unity\Assets\Scripts\Codes\Hotfix\**\*.cs">
-            <Link>ClientHotfix\%(RecursiveDir)%(FileName)%(Extension)</Link>
-        </Compile>
-    </ItemGroup>
-
 
     <ItemGroup>
       <ProjectReference Include="..\Model\Model.csproj" />

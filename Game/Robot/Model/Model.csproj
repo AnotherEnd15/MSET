@@ -1,7 +1,6 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net7.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>disable</Nullable>
     </PropertyGroup>
@@ -11,52 +10,15 @@
       <DefineConstants>TRACE;ROBOT;</DefineConstants>
       <OutputPath>..\..\RobotBin\</OutputPath>
     </PropertyGroup>
-
-    <ItemGroup>
-        <Compile Include="..\..\Unity\Assets\Scripts\Codes\ModelView\Module\RandomGenerator.cs">
-          <Link>RandomGenerator.cs</Link>
-        </Compile>
-        <Compile Include="..\..\Unity\Assets\Scripts\Core\**\*.cs">
-            <Link>ClientCore\%(RecursiveDir)%(FileName)%(Extension)</Link>
-        </Compile>
-    </ItemGroup>
-
-    <ItemGroup>
-        <Compile Include="..\..\Unity\Assets\Scripts\Codes\Model\**\*.cs">
-            <Link>ClientModel\%(RecursiveDir)%(FileName)%(Extension)</Link>
-        </Compile>
-    </ItemGroup>
-
+	
     <ItemGroup>
       <PackageReference Include="CommandLineParser" Version="2.9.1" />
       <PackageReference Include="MemoryPack" Version="1.21.1" />
       <PackageReference Include="Serilog" Version="3.1.2-dev-02097" />
     </ItemGroup>
-
+	
     <ItemGroup>
-      <Reference Include="Sirenix.OdinInspector.Attributes">
-        <HintPath>..\..\Unity\Assets\Plugins\Sirenix\Assemblies\Sirenix.OdinInspector.Attributes.dll</HintPath>
-      </Reference>
-    </ItemGroup>
-
-    <ItemGroup>
-      <Compile Include="..\..\Unity\Assets\Scripts\Loader\CDN\CDNVersionData.cs">
-        <Link>CDNVersionData.cs</Link>
-      </Compile>
-      <Compile Include="..\..\Unity\Assets\Scripts\Loader\GameVersion.cs">
-        <Link>GameVersion.cs</Link>
-      </Compile>
-      <Compile Include="..\..\Unity\Assets\Scripts\ThirdParty\**\*.cs">
-        <Link>ClientThirdParty\%(RecursiveDir)%(FileName)%(Extension)</Link>
-      </Compile>
-        
-        <Compile Remove="..\..\Unity\Assets\Scripts\ThirdParty\Serilog\**" />
-    </ItemGroup>
-
-    <ItemGroup>
-        <Compile Include="..\..\Unity\Assets\Plugins\LubanLib\**\*.cs">
-            <Link>ClientPlugin\LubanLib\%(RecursiveDir)%(FileName)%(Extension)</Link>
-        </Compile>
+      <ProjectReference Include="..\..\Share\ETCore\ETCore.csproj" />
     </ItemGroup>
     
 </Project>
