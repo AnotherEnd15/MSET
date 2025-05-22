@@ -1,5 +1,5 @@
 set WORKSPACE=..
-set LUBAN_DLL=%WORKSPACE%\ThirdParty\Luban\net7.0\Luban.dll
+set LUBAN_DLL=%WORKSPACE%\ThirdParty\Luban\Luban.dll
 set CONF_ROOT=.
 
 
@@ -20,7 +20,7 @@ dotnet %LUBAN_DLL% ^
     -e Dev ^
     --conf %CONF_ROOT%\luban.conf ^
     -x outputDataDir=..\Unity\Assets\Bundles\Config ^
-    -x outputCodeDir=..\Unity\Assets\Scripts\Codes\Model\Generate\Excel ^
+    -x outputCodeDir=..\Unity\Assets\Scripts\Model\Generate\Excel ^
     -x pathValidator.rootDir=..\Unity
 
 pause
