@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 namespace ET.Server
 {
@@ -23,11 +23,7 @@ namespace ET.Server
                     {
                         self.AllDBTransferCom.Add(v.Value);
                     }
-                    
-                    if (typeof (ICenterUnitDB).IsAssignableFrom(v.Value))
-                    {
-                        self.AllCenterUnitCom.Add(v.Value);
-                    }
+                 
                 }
             }
         }

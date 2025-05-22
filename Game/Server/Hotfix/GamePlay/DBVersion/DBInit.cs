@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using ET.GamePlay;
-using ET.GMTool;
 using ET.Server;
 using MongoDB.Driver;
 
@@ -22,11 +21,7 @@ public static class DBInit
         
         await database.CreateCollectionIfAbsent<ServerSetting>(existCollections);
 
-        await database.CreateCollectionIfAbsent<BanAccount>(existCollections);
-
         await database.CreateCollectionIfAbsent<ServerManageComponent>(existCollections);
-
-        await database.CreateCollectionIfAbsent<WhitelistAccount>(existCollections);
 
         await database.CreateCollectionIfAbsent<Player>(existCollections);
         {
