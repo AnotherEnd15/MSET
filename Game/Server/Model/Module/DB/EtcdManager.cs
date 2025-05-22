@@ -65,8 +65,8 @@ public class EtcdManager : Singleton<EtcdManager>
         Log.GetLogger().Information($"lease success: {response.ID}");
         this.LeaseId = response.ID;
         this.HealthTimer = TimerComponent.Instance.NewRepeatedTimer(6000, TimerInvokeType.EtcdHealth, this);
-        await this.WatchRangeAsync(EtcdHelper.EtcdKeyPrefix, this.OnWatchSceneChanged);
-        var existScenes = await this.GetRangeValAsync(EtcdHelper.EtcdKeyPrefix);
+        await EtcdClient.WatchRangeAsync(EtcdHelper.EtcdKeyPrefix, this.OnWatchSceneChanged);
+        var existScenes = await EtcdClient.GetRangeValAsync(EtcdHelper.EtcdKeyPrefix);
         foreach (var v in existScenes)
         {
             StartSceneService.Instance.AddConfig(v.Key, v.Value);
@@ -92,13 +92,12 @@ public class EtcdManager : Singleton<EtcdManager>
     public async ETTask PutAsync(string key, string value)
     {
         key = EtcdHelper.ConvertKey(key);
-        var putResp = await EtcdClient.PutAsync(new PutRequest()
+        await EtcdClient.PutAsync(new PutRequest()
         {
             Key = ByteString.CopyFromUtf8(key),
             Value = ByteString.CopyFromUtf8(value),
             Lease = this.LeaseId
         });
-        Log.GetLogger().Information("etcd put response {Key}: {Value} {Response}", key, value, putResp);
     }
 
     public async ETTask<IDictionary<string, string>> GetRangeValAsync(string prefix)
@@ -124,10 +123,8 @@ public class EtcdManager : Singleton<EtcdManager>
     
     private void OnWatchSceneChanged(WatchResponse response)
     {
-        Log.GetLogger().Information($"Watch Scene Changed {response}");
         foreach (var evt in response.Events)
         {
-            Log.GetLogger().Information($"Watch Scene {evt.Kv.Key.ToStringUtf8()} {evt.Type}");
             string key = evt.Kv.Key.ToStringUtf8();
             if (evt.Type == Event.Types.EventType.Put)
             {
