@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ET.Server
+namespace ET
 {
     [Event]
     public class NetInnerComponentOnReadEvent: AEvent<Scene,NetInnerComponentOnRead>

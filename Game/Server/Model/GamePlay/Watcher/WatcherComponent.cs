@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 
-namespace ET.Server
+namespace ET
 {
     [ComponentOf(typeof(Scene))]
     public class WatcherComponent: Entity, IAwake, IDestroy

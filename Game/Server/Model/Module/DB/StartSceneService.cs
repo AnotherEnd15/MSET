@@ -27,6 +27,16 @@ public class StartSceneService
 
     public Dictionary<(int zone, SceneType sceneType), List<EtcdSceneConfig>> ZoneScenes = new();
 
+    public long GetOneConfigWithHash(int zone, SceneType sceneType, long hashCode)
+    {
+        var key = (zone, sceneType);
+        if (!ZoneScenes.TryGetValue(key, out var configs))
+        {
+            return 0;
+        }
+        return configs[(int)(hashCode % configs.Count)].InstanceId;
+    }
+
     public void AddConfig(string key, string value)
     {
         var keyStrs = key.Split('/');

@@ -1,6 +1,6 @@
 using System.Net;
 
-namespace ET.Server
+namespace ET
 {
     public struct NetServerComponentOnRead
     {

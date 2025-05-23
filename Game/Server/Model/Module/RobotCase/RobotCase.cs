@@ -1,4 +1,4 @@
-﻿namespace ET.Server
+﻿namespace ET
 {
     [ChildOf(typeof(RobotCaseComponent))]
     public class RobotCase: Entity, IAwake

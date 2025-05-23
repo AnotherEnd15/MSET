@@ -115,6 +115,7 @@ namespace ET
             sb.AppendLine("using System;");
             sb.AppendLine("using MemoryPack;");
             sb.AppendLine("using System.Collections.Generic;");
+            sb.AppendLine("using MongoDB.Bson;");
             sb.AppendLine("using MongoDB.Bson.Serialization.Attributes;");
             sb.AppendLine("using MongoDB.Bson.Serialization.Options;");
             sb.AppendLine($"namespace {ns};");
@@ -129,7 +130,7 @@ namespace ET
                 msgOpcode.Add(definition.Name, startOpcode++);
             }
             
-            GenerateMemoryPackClasses(sb, defs);
+            GenerateMemoryPackClasses(sb, defs, cs != "S");
 
             sb.Append("public static partial class " + protoName + "\n\t{\n");
             foreach (var v in msgOpcode)
@@ -158,7 +159,7 @@ namespace ET
         /// <param name="sb">用于输出代码的StringBuilder</param>
         /// <param name="definitions">解析出的Proto定义列表</param>
         /// <param name="indentLevel">代码缩进级别</param>
-        public static void GenerateMemoryPackClasses(StringBuilder sb, List<ProtoDefinition> definitions,   int indentLevel = 1)
+        public static void GenerateMemoryPackClasses(StringBuilder sb, List<ProtoDefinition> definitions, bool addMemoryPack,  int indentLevel = 1)
         {
             string indent = new string('\t', indentLevel);
 
@@ -207,15 +208,18 @@ namespace ET
                 }
 
                 // 添加MemoryPack序列化标记
-                sb.AppendLine($"{indent}[MemoryPackable]");
-
-                // 如果这个类是其他类的基类，添加MemoryPackUnion特性标记所有子类
-                if (baseClassToSubClasses.ContainsKey(definition.Name))
+                if (addMemoryPack)
                 {
-                    int unionTag = 0;
-                    foreach (var subClass in baseClassToSubClasses[definition.Name])
+                    sb.AppendLine($"{indent}[MemoryPackable]");
+
+                    // 如果这个类是其他类的基类，添加MemoryPackUnion特性标记所有子类
+                    if (baseClassToSubClasses.ContainsKey(definition.Name))
                     {
-                        sb.AppendLine($"{indent}[MemoryPackUnion({unionTag++}, typeof({subClass.Name}))]");
+                        int unionTag = 0;
+                        foreach (var subClass in baseClassToSubClasses[definition.Name])
+                        {
+                            sb.AppendLine($"{indent}[MemoryPackUnion({unionTag++}, typeof({subClass.Name}))]");
+                        }
                     }
                 }
 
@@ -245,7 +249,7 @@ namespace ET
                 // IRequest系列接口处理
                 if (definition.Interfaces.Any(i => i == "IRequest" || Regex.Match(i, @"^IActor.*Request").Success))
                 {
-                    sb.AppendLine($"{indent}\t[MemoryPackOrder({orderIndex++})]");
+                    if (addMemoryPack) sb.AppendLine($"{indent}\t[MemoryPackOrder({orderIndex++})]");
                     sb.AppendLine($"{indent}\tpublic int RpcId {{ get; set; }}");
                     sb.AppendLine();
                 }
@@ -261,15 +265,15 @@ namespace ET
                 // IResponse系列接口处理
                 if (definition.Interfaces.Any(i => i == "IResponse" || Regex.Match(i, @"^IActor.*Response").Success))
                 {
-                    sb.AppendLine($"{indent}\t[MemoryPackOrder({orderIndex++})]");
+                    if (addMemoryPack) sb.AppendLine($"{indent}\t[MemoryPackOrder({orderIndex++})]");
                     sb.AppendLine($"{indent}\tpublic int RpcId {{ get; set; }}");
                     sb.AppendLine();
 
-                    sb.AppendLine($"{indent}\t[MemoryPackOrder({orderIndex++})]");
+                    if (addMemoryPack) sb.AppendLine($"{indent}\t[MemoryPackOrder({orderIndex++})]");
                     sb.AppendLine($"{indent}\tpublic int Error {{ get; set; }}");
                     sb.AppendLine();
 
-                    sb.AppendLine($"{indent}\t[MemoryPackOrder({orderIndex++})]");
+                    if (addMemoryPack) sb.AppendLine($"{indent}\t[MemoryPackOrder({orderIndex++})]");
                     sb.AppendLine($"{indent}\tpublic string Message {{ get; set; }}");
                     sb.AppendLine();
                 }
@@ -298,7 +302,7 @@ namespace ET
 
                         // 添加MongoDB的字典序列化标记
                         sb.AppendLine($"{indent}\t[BsonDictionaryOptions(DictionaryRepresentation.ArrayOfArrays)]");
-                        sb.AppendLine($"{indent}\t[MemoryPackOrder({orderIndex++})]");
+                        if (addMemoryPack) sb.AppendLine($"{indent}\t[MemoryPackOrder({orderIndex++})]");
                         sb.Append($"\t\tpublic {fieldType} {fieldName} {{ get; set; }} = new (); \n\n");
                     }
                     else if (fieldType.StartsWith("repeated"))
@@ -307,14 +311,14 @@ namespace ET
                         string type = ss[^1];
                         type = ConvertType(type);
 
-                        sb.AppendLine($"{indent}\t[MemoryPackOrder({orderIndex++})]");
+                        if (addMemoryPack) sb.AppendLine($"{indent}\t[MemoryPackOrder({orderIndex++})]");
                         sb.Append($"\t\tpublic List<{type}> {fieldName} {{ get; set; }} = new (); \n\n");
                     }
                     else
                     {
                         fieldType = ConvertType(fieldType);
      
-                        sb.AppendLine($"{indent}\t[MemoryPackOrder({orderIndex++})]");
+                        if (addMemoryPack) sb.AppendLine($"{indent}\t[MemoryPackOrder({orderIndex++})]");
                         sb.AppendLine($"{indent}\tpublic {fieldType} {char.ToUpper(field.Name[0]) + field.Name.Substring(1)} {{ get; set; }}");
                     }
 

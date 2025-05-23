@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using ET.Server;
+using ET;
+using ET.DBProxy;
 using MongoDB.Driver;
 using Serilog;
 
@@ -37,7 +38,7 @@ public static class DBVersionComponentSystem
     
     public static async ETTask Init(this DBVersionComponent self,int zone)
     {
-        var db = DBManagerComponent.Instance.GetZoneDB(zone).database;
+        var db = DBProxyComponent.Instance._database;
         var dbNames = await (await db.ListCollectionNamesAsync()).ToListAsync();
         var dbNameSet = new HashSet<string>();
         foreach (var v in dbNames)
@@ -58,9 +59,7 @@ public static class DBVersionComponentSystem
         if (dbVersion == null)
         {
             await DBInit.Init(zone, db, dbNameSet);
-            DBManagerComponent.Instance.GetZoneDB(zone).RefreshCollectionNames();
             await collection.InsertOneAsync(new DBVersion() { Version = DBVersionEnum.DB_Max - 1});
-
             Logger.Information("数据库初始化完毕 {Zone} 当前版本{DBVersionEnum}",zone, DBVersionEnum.DB_Max - 1);
         }
         else
@@ -93,7 +92,6 @@ public static class DBVersionComponentSystem
                 Logger.Information("数据库升级完毕 {Zone} 当前版本{DBVersionEnum}",zone, (DBVersionEnum)i);
                 
             }
-            DBManagerComponent.Instance.GetZoneDB(zone).RefreshCollectionNames();
         }
 
     }

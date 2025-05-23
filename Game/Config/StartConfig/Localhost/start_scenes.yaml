@@ -18,7 +18,7 @@ sceneConfigs:
   zone: 1
   tags: []
 - process: 1
-  sceneType: DBCache
+  sceneType: DBProxy
   outerPort: 0
   zone: 1
   tags: []

@@ -1,7 +1,7 @@
 ﻿using System.Net;
 using System.Net.Sockets;
 
-namespace ET.Server
+namespace ET
 {
     [FriendOf(typeof(NetInnerComponent))]
     [EntitySystemOf(typeof(NetInnerComponent))]

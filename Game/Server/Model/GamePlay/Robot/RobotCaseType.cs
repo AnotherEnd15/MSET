@@ -1,4 +1,4 @@
-namespace ET.Server
+namespace ET
 {
     [UniqueId(1, 10000)]
     public static class RobotCaseType

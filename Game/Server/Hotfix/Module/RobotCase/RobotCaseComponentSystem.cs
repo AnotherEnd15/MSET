@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace ET.Server
+namespace ET
 {
     [FriendOf(typeof(RobotCaseComponent))]
     public static class RobotCaseComponentSystem

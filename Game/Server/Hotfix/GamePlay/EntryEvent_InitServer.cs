@@ -10,7 +10,7 @@ using ET.Module.Quartz;
 using MongoDB.Driver;
 using YamlDotNet.RepresentationModel;
 
-namespace ET.Server
+namespace ET
 {
     [Event]
     public class EntryEvent_InitServer : AEvent<Scene, ET.EventType.EntryEvent>
@@ -22,9 +22,7 @@ namespace ET.Server
             Root.Instance.Scene.AddComponent<NetThreadComponent>();
             Root.Instance.Scene.AddComponent<OpcodeTypeComponent>();
             Root.Instance.Scene.AddComponent<MessageDispatcherComponent>();
-            Root.Instance.Scene.AddComponent<DBManagerComponent>();
-
-
+            
             Game.AddSingleton<ConfigComponent>().LoadAll();
             StartHelper.LoadStartConfig(Options.Instance.Process);
             await Game.AddSingleton<EtcdManager>().InitAsync();

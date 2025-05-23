@@ -1,11 +1,10 @@
 using System.Net;
 using System.Net.Sockets;
-using ET.Server;
-using ET.GamePlay;
 using ET;
+using ET.GamePlay;
 using ET.Helper;
 
-namespace ET.Server
+namespace ET
 {
     public static class SceneFactory
     {

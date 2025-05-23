@@ -1,4 +1,4 @@
-namespace ET.Server
+namespace ET
 {
     [SceneController(SceneType.Gate)]
     public class SceneController_Gate : ISceneController

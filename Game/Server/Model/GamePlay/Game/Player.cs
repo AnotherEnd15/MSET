@@ -1,7 +1,7 @@
 using ET.Define;
 using MongoDB.Bson.Serialization.Attributes;
 
-namespace ET.Server
+namespace ET
 {
     [ChildOf(typeof(PlayerComponent))]
     public sealed class Player : Entity, IAwake

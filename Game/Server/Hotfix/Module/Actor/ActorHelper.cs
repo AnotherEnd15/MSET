@@ -1,7 +1,7 @@
 using System;
 using System.IO;
 
-namespace ET.Server
+namespace ET
 {
     public static class ActorHelper
     {

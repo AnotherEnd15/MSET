@@ -1,4 +1,4 @@
-namespace ET.Server
+namespace ET
 {
     public struct RobotInvokeArgs
     {

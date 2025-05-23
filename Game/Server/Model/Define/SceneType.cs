@@ -15,6 +15,6 @@ namespace ET
 		Battle = 21, // 承载战斗/场景之类的逻辑
 		
 		GM = 30, // 专门给GM处理的服
-		DBCache = 31, // 和mongodb交互的中间层, 同时也负责缓存处理
+		DBProxy = 31, // 和mongodb交互的中间层
 	}
 }

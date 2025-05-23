@@ -1,6 +1,6 @@
 using ET.Module;
 
-namespace ET.Server
+namespace ET
 {
     [Event]
     public class NetServerComponentOnReadEvent: AEvent<Scene,NetServerComponentOnRead>

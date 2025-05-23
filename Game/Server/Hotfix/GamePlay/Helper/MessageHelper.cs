@@ -5,7 +5,7 @@ using System.IO;
 using ET.GamePlay;
 
 
-namespace ET.Server
+namespace ET
 {
     public static partial class MessageHelper
     {

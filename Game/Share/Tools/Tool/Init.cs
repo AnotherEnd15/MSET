@@ -5,7 +5,7 @@ using CommandLine;
 using ET.ErrorCode;
 using Tool;
 
-namespace ET.Server
+namespace ET
 {
     internal static class Init
     {

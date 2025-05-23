@@ -4,7 +4,7 @@ using MongoDB.Driver;
 
 namespace ET
 {
-    public static class DBHelper
+    public static class DBIndexHelper
     {
         public static async ETTask CreateCollectionIfAbsent<T>(this IMongoDatabase database, HashSet<string> existCollections)
         {

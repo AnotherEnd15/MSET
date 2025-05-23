@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
 
-namespace ET.Server
+namespace ET
 {
     
     [ComponentOf(typeof(Scene))]

@@ -2,7 +2,7 @@
 using System.Net;
 using System.Net.NetworkInformation;
 
-namespace ET.Server
+namespace ET
 {
     public static class IPHelper
     {

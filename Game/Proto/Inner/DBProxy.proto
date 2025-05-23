@@ -1,0 +1,22 @@
+module ET.Proto;
+
+//ResponseType DP2Any_DBOperationResponse
+message Any2DP_DBOperationRequest // IActorRequest
+{
+	DBOperationRequest Request = 1;
+}
+message DP2Any_DBOperationResponse //IActorResponse
+{
+	BsonDocument Response = 2;
+}
+
+
+//ResponseType DP2Any_QuerySavingCountResponse
+message Any2DP_QuerySavingCountRequest // IActorRequest
+{
+ 
+}
+message DP2Any_QuerySavingCountResponse // IActorResponse
+{
+    int32 Count = 1;
+}

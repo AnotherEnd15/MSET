@@ -1,5 +1,5 @@
 ﻿using ET.Proto;
-using ET.Server;
+using ET;
 
 namespace ET.Module
 {

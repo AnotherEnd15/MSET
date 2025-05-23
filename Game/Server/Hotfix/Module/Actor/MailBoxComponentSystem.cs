@@ -1,6 +1,6 @@
 using System;
 
-namespace ET.Server
+namespace ET
 {
     [ObjectSystem]
     public class MailBoxComponentAwakeSystem: AwakeSystem<MailBoxComponent>

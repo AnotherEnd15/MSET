@@ -1,7 +1,7 @@
 ﻿using System.Net;
 using System.Text;
 
-namespace ET.Server
+namespace ET
 {
     public static class HttpHelper
     {

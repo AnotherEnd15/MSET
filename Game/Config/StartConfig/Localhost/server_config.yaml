@@ -10,6 +10,6 @@ redis:
 # 服务之间的依赖 __Base代表公共依赖
 services_dependency:
   "__Base":
-    "DBCache": 1
+    "DBProxy": 1
   "Game":
     "Gate" : 1
