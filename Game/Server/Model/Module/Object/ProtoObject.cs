@@ -5,11 +5,6 @@ namespace ET
 {
     public abstract class ProtoObject: Object, ISupportInitialize
     {
-        public object Clone()
-        {
-            return SerializeHelper.Clone(this);
-        }
-        
         public virtual void BeginInit()
         {
         }
