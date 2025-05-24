@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
@@ -13,6 +13,7 @@ public static class DBProxyComponentSystem
     [ObjectSystem]
     public static void Awake(this DBProxyComponent self, string connectionString, string databaseName)
     {
+        DBProxyComponent.Instance = self;
         self._logger = Log.GetLogger();
         self._client = new MongoClient(connectionString);
         self._database = self._client.GetDatabase(databaseName);
