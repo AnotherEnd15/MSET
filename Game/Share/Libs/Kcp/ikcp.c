@@ -1323,3 +1323,9 @@ void ikcp_setminrto(ikcpcb *kcp, int Minrto)
 	kcp->rx_minrto = Minrto;
 }
 
+void ikcp_setstream(ikcpcb *kcp, int stream)
+{
+	kcp->stream = stream;
+}
+
+
