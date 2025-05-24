@@ -4,10 +4,9 @@ using System.Net.Sockets;
 namespace ET
 {
     [FriendOf(typeof(NetInnerComponent))]
-    [EntitySystemOf(typeof(NetInnerComponent))]
     public static class NetInnerComponentSystem
     {
-        [EntitySystem]
+        [ObjectSystem]
         public static void Awake(this NetInnerComponent self)
         {
             NetInnerComponent.Instance = self;
@@ -30,7 +29,7 @@ namespace ET
             NetServices.Instance.RegisterErrorCallback(self.ServiceId, self.OnError);
         }
 
-        [EntitySystem]
+        [ObjectSystem]
         public static void Awake(this NetInnerComponent self,IPEndPoint address)
         {
             NetInnerComponent.Instance = self;
@@ -54,7 +53,7 @@ namespace ET
             NetServices.Instance.RegisterErrorCallback(self.ServiceId, self.OnError);
         }
 
-        [EntitySystem]
+        [ObjectSystem]
         public static void Destroy(this NetInnerComponent self)
         {
             NetServices.Instance.RemoveService(self.ServiceId);

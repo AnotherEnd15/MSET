@@ -18,27 +18,21 @@ namespace ET
         }
     }
     
-    [ObjectSystem]
-    public class SessionIdleCheckerComponentAwakeSystem: AwakeSystem<SessionIdleCheckerComponent>
-    {
-        protected override void Awake(SessionIdleCheckerComponent self)
-        {
-            self.RepeatedTimer = TimerComponent.Instance.NewRepeatedTimer(SessionIdleCheckerComponentSystem.CheckInteral, TimerInvokeType.SessionIdleChecker, self);
-        }
-    }
-
-    [ObjectSystem]
-    public class SessionIdleCheckerComponentDestroySystem: DestroySystem<SessionIdleCheckerComponent>
-    {
-        protected override void Destroy(SessionIdleCheckerComponent self)
-        {
-            TimerComponent.Instance?.Remove(ref self.RepeatedTimer);
-        }
-    }
-
     public static class SessionIdleCheckerComponentSystem
     {
         public const int CheckInteral = 2000;
+        
+        [ObjectSystem]
+        public static void Awake(this SessionIdleCheckerComponent self)
+        {
+            self.RepeatedTimer = TimerComponent.Instance.NewRepeatedTimer(SessionIdleCheckerComponentSystem.CheckInteral, TimerInvokeType.SessionIdleChecker, self);
+        }
+
+        [ObjectSystem]
+        public static void Destroy(this SessionIdleCheckerComponent self)
+        {
+            TimerComponent.Instance?.Remove(ref self.RepeatedTimer);
+        }
         
         public static void Check(this SessionIdleCheckerComponent self)
         {

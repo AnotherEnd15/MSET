@@ -4,24 +4,20 @@ namespace ET
 {
     public static class StateMachineComponentSystem
     {
-        public class AwakeSystem : AwakeSystem<StateMachineComponent>
+        [ObjectSystem]
+        public static void Awake(this StateMachineComponent self)
         {
-            protected override void Awake(StateMachineComponent self)
-            {
-                StateMachineComponent.Instance = self;
-                self.Load();
-            }
+            StateMachineComponent.Instance = self;
+            self.LoadInternal();
         }
         
-        public class LoadSystem : LoadSystem<StateMachineComponent>
-        {
-            protected override void Load(StateMachineComponent self)
-            {
-                self.Load();
-            }
-        }
-        
+        [ObjectSystem]
         public static void Load(this StateMachineComponent self)
+        {
+            self.LoadInternal();
+        }
+        
+        private static void LoadInternal(this StateMachineComponent self)
         {
             self.StateMachines.Clear();
             foreach (var v in EventSystem.Instance.GetTypes(typeof(StateMachineAttribute)))

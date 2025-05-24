@@ -6,37 +6,28 @@ namespace ET
     public static class NetThreadComponentSystem
     {
         [ObjectSystem]
-        public class AwakeSystem: AwakeSystem<NetThreadComponent>
+        public static void Awake(this NetThreadComponent self)
         {
-            protected override void Awake(NetThreadComponent self)
-            {
-                NetThreadComponent.Instance = self;
+            NetThreadComponent.Instance = self;
 
-                // // 网络线程
-                // self.thread = new Thread(self.NetThreadUpdate);
-                // self.thread.Start();
-            }
+            // // 网络线程
+            // self.thread = new Thread(self.NetThreadUpdate);
+            // self.thread.Start();
         }
         
         [ObjectSystem]
-        public class LateUpdateSystem: LateUpdateSystem<NetThreadComponent>
+        public static void LateUpdate(this NetThreadComponent self)
         {
-            protected override void LateUpdate(NetThreadComponent self)
-            {
-                self.MainThreadUpdate();
-                NetServices.Instance.UpdateInNetThread();
-            }
+            self.MainThreadUpdate();
+            NetServices.Instance.UpdateInNetThread();
         }
         
         [ObjectSystem]
-        public class DestroySystem: DestroySystem<NetThreadComponent>
+        public static void Destroy(this NetThreadComponent self)
         {
-            protected override void Destroy(NetThreadComponent self)
-            {
-                NetThreadComponent.Instance = null;
-                self.isStop = true;
-                // self.thread.Join(1000);
-            }
+            NetThreadComponent.Instance = null;
+            self.isStop = true;
+            // self.thread.Join(1000);
         }
 
         // 主线程Update

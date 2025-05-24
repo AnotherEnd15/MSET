@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -9,12 +9,15 @@ using Serilog;
 
 namespace ET;
 
-[ObjectSystem]
-public class DBVersionComponentAwakeSystem : AwakeSystem<DBVersionComponent>
+
+
+public static class DBVersionComponentSystem
 {
-    protected override void Awake(DBVersionComponent self)
+    private static ILogger Logger = Log.GetLogger();
+
+    [ObjectSystem]
+    public static void Awake(this DBVersionComponent self)
     {
-        // 这里不需要热更,所以直接Awake里写
         self.AllVersionHandlers.Clear();
         foreach (var v in EventSystem.Instance.GetTypes(typeof(DBVersionAttribute)))
         {
@@ -28,13 +31,6 @@ public class DBVersionComponentAwakeSystem : AwakeSystem<DBVersionComponent>
             self.AllVersionHandlers[attr.DBVersion] = instance;
         }
     }
-}
-
-
-
-public static class DBVersionComponentSystem
-{
-    private static ILogger Logger = Log.GetLogger();
     
     public static async ETTask Init(this DBVersionComponent self,int zone)
     {

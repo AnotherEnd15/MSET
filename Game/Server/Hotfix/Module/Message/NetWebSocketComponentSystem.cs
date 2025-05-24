@@ -7,25 +7,19 @@ namespace ET
     public static class NetWebSocketComponentSystem
     {
         [ObjectSystem]
-        public class AwakeSystem: AwakeSystem<NetWebSocketComponent, string>
+        public static void Awake(this NetWebSocketComponent self, string prefixs)
         {
-            protected override void Awake(NetWebSocketComponent self,string prefixs)
-            {
-                Log.GetLogger().Information($" {self.DomainScene().SceneType} websocket http监听地址 {prefixs}");
-                self.ServiceId = NetServices.Instance.AddService(new WService(new []{prefixs}));
-                NetServices.Instance.RegisterAcceptCallback(self.ServiceId, self.OnAccept);
-                NetServices.Instance.RegisterReadCallback(self.ServiceId, self.OnRead);
-                NetServices.Instance.RegisterErrorCallback(self.ServiceId, self.OnError);
-            }
+            Log.GetLogger().Information($" {self.DomainScene().SceneType} websocket http监听地址 {prefixs}");
+            self.ServiceId = NetServices.Instance.AddService(new WService(new []{prefixs}));
+            NetServices.Instance.RegisterAcceptCallback(self.ServiceId, self.OnAccept);
+            NetServices.Instance.RegisterReadCallback(self.ServiceId, self.OnRead);
+            NetServices.Instance.RegisterErrorCallback(self.ServiceId, self.OnError);
         }
 
         [ObjectSystem]
-        public class NetKcpComponentDestroySystem: DestroySystem<NetWebSocketComponent>
+        public static void Destroy(this NetWebSocketComponent self)
         {
-            protected override void Destroy(NetWebSocketComponent self)
-            {
-                NetServices.Instance.RemoveService(self.ServiceId);
-            }
+            NetServices.Instance.RemoveService(self.ServiceId);
         }
 
         private static void OnError(this NetWebSocketComponent self, long channelId, int error)

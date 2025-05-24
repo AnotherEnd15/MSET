@@ -4,24 +4,20 @@ namespace ET
 {
     public static class SceneControllerComponentSystem
     {
-        public class AwakeSystem: AwakeSystem<SceneControllerComponent>
+        [ObjectSystem]
+        public static void Awake(this SceneControllerComponent self)
         {
-            protected override void Awake(SceneControllerComponent self)
-            {
-                SceneControllerComponent.Instance = self;
-                self.Load();
-            }
+            SceneControllerComponent.Instance = self;
+            self.LoadInternal();
         }
 
-        public class LoadSystem: LoadSystem<SceneControllerComponent>
-        {
-            protected override void Load(SceneControllerComponent self)
-            {
-                self.Load();
-            }
-        }
-
+        [ObjectSystem]
         public static void Load(this SceneControllerComponent self)
+        {
+            self.LoadInternal();
+        }
+
+        private static void LoadInternal(this SceneControllerComponent self)
         {
             self.AllSceneControllers.Clear();
             foreach (var v in EventSystem.Instance.GetTypes(typeof(SceneControllerAttribute)))

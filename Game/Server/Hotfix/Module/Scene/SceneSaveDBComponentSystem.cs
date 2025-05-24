@@ -2,21 +2,17 @@
 {
     public static class SceneSaveDBComponentSystem
     {
-        public class SceneSaveDBComponentAwakeSystem: AwakeSystem<SceneSaveDBComponent>
+        [ObjectSystem]
+        public static void Awake(this SceneSaveDBComponent self)
         {
-            protected override void Awake(SceneSaveDBComponent self)
-            {
-                var time = 15 * TimeHelper.Minute + RandomGenerator.RandomNumber(-10000,10000);
-                self.SaveTimer = TimerComponent.Instance.NewRepeatedTimer(time,TimerInvokeType.SceneSave,self);
-            }
+            var time = 15 * TimeHelper.Minute + RandomGenerator.RandomNumber(-10000,10000);
+            self.SaveTimer = TimerComponent.Instance.NewRepeatedTimer(time,TimerInvokeType.SceneSave,self);
         }
         
-        public class SceneSaveDBComponentDestroySystem: DestroySystem<SceneSaveDBComponent>
+        [ObjectSystem]
+        public static void Destroy(this SceneSaveDBComponent self)
         {
-            protected override void Destroy(SceneSaveDBComponent self)
-            {
-                TimerComponent.Instance.Remove(ref self.SaveTimer);
-            }
+            TimerComponent.Instance.Remove(ref self.SaveTimer);
         }
 
         [Invoke(TimerInvokeType.SceneSave)]

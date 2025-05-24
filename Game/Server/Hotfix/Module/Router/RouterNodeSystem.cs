@@ -4,36 +4,30 @@
     public static class RouterNodeSystem
     {
         [ObjectSystem]
-        public class RouterNodeAwakeSystem: AwakeSystem<RouterNode>
+        public static void Awake(this RouterNode self)
         {
-            protected override void Awake(RouterNode self)
-            {
-                long timeNow = TimeHelper.ServerNow();
-                self.LastRecvInnerTime = timeNow;
-                self.LastRecvOuterTime = timeNow;
-                self.OuterIpEndPoint = null;
-                self.InnerIpEndPoint = null;
-                self.RouterSyncCount = 0;
-                self.OuterConn = 0;
-                self.InnerConn = 0;
-            }
+            long timeNow = TimeHelper.ServerNow();
+            self.LastRecvInnerTime = timeNow;
+            self.LastRecvOuterTime = timeNow;
+            self.OuterIpEndPoint = null;
+            self.InnerIpEndPoint = null;
+            self.RouterSyncCount = 0;
+            self.OuterConn = 0;
+            self.InnerConn = 0;
         }
 
         [ObjectSystem]
-        public class RouterNodeDestroySystem: DestroySystem<RouterNode>
+        public static void Destroy(this RouterNode self)
         {
-            protected override void Destroy(RouterNode self)
-            {
-                self.OuterConn = 0;
-                self.InnerConn = 0;
-                self.LastRecvInnerTime = 0;
-                self.LastRecvOuterTime = 0;
-                self.OuterIpEndPoint = null;
-                self.InnerIpEndPoint = null;
-                self.InnerAddress = null;
-                self.RouterSyncCount = 0;
-                self.SyncCount = 0;
-            }
+            self.OuterConn = 0;
+            self.InnerConn = 0;
+            self.LastRecvInnerTime = 0;
+            self.LastRecvOuterTime = 0;
+            self.OuterIpEndPoint = null;
+            self.InnerIpEndPoint = null;
+            self.InnerAddress = null;
+            self.RouterSyncCount = 0;
+            self.SyncCount = 0;
         }
         
         public static bool CheckOuterCount(this RouterNode self, long timeNow)

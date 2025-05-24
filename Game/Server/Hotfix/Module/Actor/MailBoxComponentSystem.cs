@@ -2,19 +2,16 @@ using System;
 
 namespace ET
 {
-    [ObjectSystem]
-    public class MailBoxComponentAwakeSystem: AwakeSystem<MailBoxComponent>
+    public static class MailBoxComponentSystem
     {
-        protected override void Awake(MailBoxComponent self)
+        [ObjectSystem]
+        public static void Awake(this MailBoxComponent self)
         {
             self.MailboxType = MailboxType.MessageDispatcher;
         }
-    }
 
-    [ObjectSystem]
-    public class MailBoxComponentAwake1System: AwakeSystem<MailBoxComponent, MailboxType>
-    {
-        protected override void Awake(MailBoxComponent self, MailboxType mailboxType)
+        [ObjectSystem]
+        public static void Awake(this MailBoxComponent self, MailboxType mailboxType)
         {
             self.MailboxType = mailboxType;
         }

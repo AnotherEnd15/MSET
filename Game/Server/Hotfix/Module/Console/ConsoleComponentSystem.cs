@@ -10,26 +10,20 @@ namespace ET
     public static class ConsoleComponentSystem
     {
         [ObjectSystem]
-        public class ConsoleComponentAwakeSystem: AwakeSystem<ConsoleComponent>
+        public static void Awake(this ConsoleComponent self)
         {
-            protected override void Awake(ConsoleComponent self)
-            {
-                self.Load();
-            
-                self.Start().Coroutine();
-            }
+            self.LoadInternal();
+        
+            self.Start().Coroutine();
         }
 
         [ObjectSystem]
-        public class ConsoleComponentLoadSystem: LoadSystem<ConsoleComponent>
+        public static void Load(this ConsoleComponent self)
         {
-            protected override void Load(ConsoleComponent self)
-            {
-                self.Load();
-            }
+            self.LoadInternal();
         }
         
-        public static void Load(this ConsoleComponent self)
+        private static void LoadInternal(this ConsoleComponent self)
         {
             self.Handlers.Clear();
 

@@ -10,7 +10,8 @@ namespace ET.DBProxy;
 
 public static class DBProxyComponentSystem
 {
-    public static void Init(this DBProxyComponent self, string connectionString, string databaseName)
+    [ObjectSystem]
+    public static void Awake(this DBProxyComponent self, string connectionString, string databaseName)
     {
         self._logger = Log.GetLogger();
         self._client = new MongoClient(connectionString);

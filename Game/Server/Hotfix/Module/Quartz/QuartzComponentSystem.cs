@@ -6,17 +6,16 @@ using Quartz.Logging;
 
 namespace ET.Module.Quartz
 {
-    [EntitySystemOf(typeof(QuartzComponent))]
     public static class QuartzComponentSystem
     {
 
-        [EntitySystem]
+        [ObjectSystem]
         public static void Awake(this QuartzComponent self)
         {
             QuartzComponent.Instance = self;
         }
 
-        [EntitySystem]
+        [ObjectSystem]
         public static void Destroy(this QuartzComponent self)
         {
             self.Scheduler.Shutdown();

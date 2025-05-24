@@ -4,24 +4,20 @@ namespace ET.Module.Condition
 {
     public static class ConditionMgrComponentSystem
     {
-        public class AwakeSystem: AwakeSystem<ConditionMgrComponent>
+        [ObjectSystem]
+        public static void Awake(this ConditionMgrComponent self)
         {
-            protected override void Awake(ConditionMgrComponent self)
-            {
-                ConditionMgrComponent.Instance = self;
-                self.Load();
-            }
+            ConditionMgrComponent.Instance = self;
+            self.LoadInternal();
         }
 
-        public class LoadSystem: LoadSystem<ConditionMgrComponent>
-        {
-            protected override void Load(ConditionMgrComponent self)
-            {
-                self.Load();
-            }
-        }
-
+        [ObjectSystem]
         public static void Load(this ConditionMgrComponent self)
+        {
+            self.LoadInternal();
+        }
+
+        private static void LoadInternal(this ConditionMgrComponent self)
         {
             self.AllConditionHandler.Clear();
             foreach (var v in EventSystem.Instance.GetTypes(typeof(ConditionAttribute)))

@@ -19,19 +19,16 @@ namespace ET
         }
     }
     
-    [ObjectSystem]
-    public class SessionAcceptTimeoutComponentAwakeSystem: AwakeSystem<SessionAcceptTimeoutComponent>
+    public static class SessionAcceptTimeoutComponentSystem
     {
-        protected override void Awake(SessionAcceptTimeoutComponent self)
+        [ObjectSystem]
+        public static void Awake(this SessionAcceptTimeoutComponent self)
         {
             self.Timer = TimerComponent.Instance.NewOnceTimer(TimeHelper.ServerNow() + 5000, TimerInvokeType.SessionAcceptTimeout, self);
         }
-    }
 
-    [ObjectSystem]
-    public class SessionAcceptTimeoutComponentDestroySystem: DestroySystem<SessionAcceptTimeoutComponent>
-    {
-        protected override void Destroy(SessionAcceptTimeoutComponent self)
+        [ObjectSystem]
+        public static void Destroy(this SessionAcceptTimeoutComponent self)
         {
             TimerComponent.Instance.Remove(ref self.Timer);
         }

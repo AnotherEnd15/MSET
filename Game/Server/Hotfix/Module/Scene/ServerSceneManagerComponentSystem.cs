@@ -4,21 +4,15 @@
     public static class ServerSceneManagerComponentSystem
     {
         [ObjectSystem]
-        public class ServerSceneManagerComponentAwakeSystem: AwakeSystem<ServerSceneManagerComponent>
+        public static void Awake(this ServerSceneManagerComponent self)
         {
-            protected override void Awake(ServerSceneManagerComponent self)
-            {
-                ServerSceneManagerComponent.Instance = self;
-            }
+            ServerSceneManagerComponent.Instance = self;
         }
 
         [ObjectSystem]
-        public class ServerSceneManagerComponentDestroySystem: DestroySystem<ServerSceneManagerComponent>
+        public static void Destroy(this ServerSceneManagerComponent self)
         {
-            protected override void Destroy(ServerSceneManagerComponent self)
-            {
-                ServerSceneManagerComponent.Instance = null;
-            }
+            ServerSceneManagerComponent.Instance = null;
         }
         
         public static Scene Get(this ServerSceneManagerComponent self, int id)

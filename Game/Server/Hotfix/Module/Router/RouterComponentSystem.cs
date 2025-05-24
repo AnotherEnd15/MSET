@@ -10,59 +10,50 @@ namespace ET
     public static class RouterComponentSystem
     {
         [ObjectSystem]
-        public class RouterComponentAwakeSystem: AwakeSystem<RouterComponent, IPEndPoint, string>
+        public static void Awake(this RouterComponent self, IPEndPoint outerAddress, string innerIP)
         {
-            protected override void Awake(RouterComponent self, IPEndPoint outerAddress, string innerIP)
+            self.OuterSocket = new Socket(outerAddress.AddressFamily, SocketType.Dgram, ProtocolType.Udp);
+            self.OuterSocket.Bind(outerAddress);
+            if (!RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
             {
-                self.OuterSocket = new Socket(outerAddress.AddressFamily, SocketType.Dgram, ProtocolType.Udp);
-                self.OuterSocket.Bind(outerAddress);
-                if (!RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
-                {
-                    self.OuterSocket.SendBufferSize = 16 * Kcp.OneM;
-                    self.OuterSocket.ReceiveBufferSize = 16 * Kcp.OneM;
-                }
-
-                self.InnerSocket = new Socket(outerAddress.AddressFamily, SocketType.Dgram, ProtocolType.Udp);
-                self.InnerSocket.Bind(new IPEndPoint(IPAddress.Parse(innerIP), 0));
-
-                if (!RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
-                {
-                    self.InnerSocket.SendBufferSize = 16 * Kcp.OneM;
-                    self.InnerSocket.ReceiveBufferSize = 16 * Kcp.OneM;
-                }
-                
-                NetworkHelper.SetSioUdpConnReset(self.OuterSocket);
-                NetworkHelper.SetSioUdpConnReset(self.InnerSocket);
+                self.OuterSocket.SendBufferSize = 16 * Kcp.OneM;
+                self.OuterSocket.ReceiveBufferSize = 16 * Kcp.OneM;
             }
+
+            self.InnerSocket = new Socket(outerAddress.AddressFamily, SocketType.Dgram, ProtocolType.Udp);
+            self.InnerSocket.Bind(new IPEndPoint(IPAddress.Parse(innerIP), 0));
+
+            if (!RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+            {
+                self.InnerSocket.SendBufferSize = 16 * Kcp.OneM;
+                self.InnerSocket.ReceiveBufferSize = 16 * Kcp.OneM;
+            }
+            
+            NetworkHelper.SetSioUdpConnReset(self.OuterSocket);
+            NetworkHelper.SetSioUdpConnReset(self.InnerSocket);
         }
 
         [ObjectSystem]
-        public class RouterComponentDestroySystem: DestroySystem<RouterComponent>
+        public static void Destroy(this RouterComponent self)
         {
-            protected override void Destroy(RouterComponent self)
-            {
-                self.OuterSocket.Dispose();
-                self.InnerSocket.Dispose();
-                self.OuterNodes.Clear();
-                self.IPEndPoint = null;
-            }
+            self.OuterSocket.Dispose();
+            self.InnerSocket.Dispose();
+            self.OuterNodes.Clear();
+            self.IPEndPoint = null;
         }
 
         [ObjectSystem]
-        public class RouterComponentUpdateSystem: UpdateSystem<RouterComponent>
+        public static void Update(this RouterComponent self)
         {
-            protected override void Update(RouterComponent self)
-            {
-                long timeNow = TimeHelper.ClientNow();
-                self.RecvOuter(timeNow);
-                self.RecvInner(timeNow);
+            long timeNow = TimeHelper.ClientNow();
+            self.RecvOuter(timeNow);
+            self.RecvInner(timeNow);
 
-                // 每秒钟检查一次
-                if (timeNow - self.LastCheckTime > 1000)
-                {
-                    self.CheckConnectTimeout(timeNow);
-                    self.LastCheckTime = timeNow;
-                }
+            // 每秒钟检查一次
+            if (timeNow - self.LastCheckTime > 1000)
+            {
+                self.CheckConnectTimeout(timeNow);
+                self.LastCheckTime = timeNow;
             }
         }
 

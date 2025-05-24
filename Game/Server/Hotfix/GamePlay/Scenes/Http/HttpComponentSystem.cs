@@ -4,13 +4,14 @@ using System.Net;
 
 namespace ET
 {
-    public class HttpComponentAwakeSystem : AwakeSystem<HttpComponent, string>
+    public static class HttpComponentSystem
     {
-        protected override void Awake(HttpComponent self, string address)
+        [ObjectSystem]
+        public static void Awake(this HttpComponent self, string address)
         {
             try
             {
-                self.Load();
+                self.LoadInternal();
                 self.Listener = new HttpListener();
 
                 foreach (string s in address.Split(';'))
@@ -37,31 +38,21 @@ namespace ET
                 Log.GetLogger().Error(e,"监听http失败: {Address}",address);
             }
         }
-    }
 
-    [ObjectSystem]
-    public class HttpComponentLoadSystem: LoadSystem<HttpComponent>
-    {
-        protected override void Load(HttpComponent self)
+        [ObjectSystem]
+        public static void Load(this HttpComponent self)
         {
-            self.Load();
+            self.LoadInternal();
         }
-    }
 
-    [ObjectSystem]
-    public class HttpComponentDestroySystem: DestroySystem<HttpComponent>
-    {
-        protected override void Destroy(HttpComponent self)
+        [ObjectSystem]
+        public static void Destroy(this HttpComponent self)
         {
             self.Listener.Stop();
             self.Listener.Close();
         }
-    }
-    
-    
-    public static class HttpComponentSystem
-    {
-        public static void Load(this HttpComponent self)
+        
+        private static void LoadInternal(this HttpComponent self)
         {
             self.dispatcher = new Dictionary<string, IHttpHandler>();
 

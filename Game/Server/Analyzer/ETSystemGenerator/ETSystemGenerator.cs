@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using ET.ETSystemGenerator;
 using ET.Generator;
@@ -163,6 +163,11 @@ namespace {{namespaceName}}
                 string argsTypesWithout0 = string.Join(", ", argsTypesWithout0List);
                 string argsVarsWithout0 = string.Join(", ", argsVarsWithout0List);
                 string argsTypesVarsWithout0 = string.Join(", ", argsTypeVarsWithout0List);
+                
+                // 为ObjectSystem特性添加新的占位符变量
+                string argsTypesWithComma = argsTypesWithout0List.Count > 0 ? ", " + argsTypesWithout0 : "";
+                string argsVarsWithCommaPrefix = argsVarsWithout0List.Count > 0 ? ", " + argsVarsWithout0 : "";
+                string argsTypesVarsWithCommaPrefix = argsTypeVarsWithout0List.Count > 0 ? ", " + argsTypesVarsWithout0 : "";
 
                 code = code.Replace("$attribute$", attributeString);
                 code = code.Replace("$attributeType$", attributeType);
@@ -176,6 +181,9 @@ namespace {{namespaceName}}
                 code = code.Replace("$argsTypesWithout0$", argsTypesWithout0);
                 code = code.Replace("$argsVarsWithout0$", argsVarsWithout0);
                 code = code.Replace("$argsTypesVarsWithout0$", argsTypesVarsWithout0);
+                code = code.Replace("$argsTypesWithComma$", argsTypesWithComma);
+                code = code.Replace("$argsVarsWithCommaPrefix$", argsVarsWithCommaPrefix);
+                code = code.Replace("$argsTypesVarsWithCommaPrefix$", argsTypesVarsWithCommaPrefix);
 
                 for (int i = 0; i < argsTypesList.Count; ++i)
                 {

@@ -73,7 +73,7 @@ public class TaskResult
 }
 
 [ComponentOf(typeof(Scene))]
-public class DBProxyComponent : Entity, IAwake
+public class DBProxyComponent : Entity, IAwake<string, string>
 {
     [StaticField]
     public static DBProxyComponent Instance;

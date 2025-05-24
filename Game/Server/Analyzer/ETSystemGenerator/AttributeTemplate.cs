@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 namespace ET.Generator
@@ -10,30 +10,6 @@ namespace ET.Generator
 
         public AttributeTemplate()
         {
-            this.templates.Add("EntitySystem", 
-                $$"""
-                $attribute$
-                        public class $argsTypesUnderLine$_$methodName$System: $methodName$System<$argsTypes$>
-                        {   
-                            protected override void $methodName$($argsTypesVars$)
-                            {
-                                $argsVars0$.$methodName$($argsVarsWithout0$);
-                            }
-                        }
-                """);
-            
-            this.templates.Add("LSEntitySystem", 
-                $$"""
-                $attribute$
-                        public class $argsTypesUnderLine$_$methodName$System: $methodName$System<$argsTypes$>
-                        {   
-                            protected override void $methodName$($argsTypesVars$)
-                            {
-                                $argsVars0$.$methodName$($argsVarsWithout0$);
-                            }
-                        }
-                """);
-            
             this.templates.Add("MessageHandler", 
                 $$"""
                 $attribute$
@@ -78,6 +54,18 @@ namespace ET.Generator
                             protected override async ETTask Run($argsTypesVars$)
                             {
                                 await $className$.$methodName$($argsVars$);
+                            }
+                        }
+                """);
+            
+            this.templates.Add("ObjectSystem", 
+                $$"""
+                $attribute$
+                        public class $entityType$_$argsTypesUnderLine$_$methodName$System: $methodName$System<$entityType$$argsTypesWithComma$>
+                        {   
+                            protected override void $methodName$($entityType$ self$argsTypesVarsWithCommaPrefix$)
+                            {
+                                $className$.$methodName$(self$argsVarsWithCommaPrefix$);
                             }
                         }
                 """);

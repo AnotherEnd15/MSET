@@ -7,21 +7,15 @@ namespace ET
     public static class RobotCaseComponentSystem
     {
         [ObjectSystem]
-        public class RobotCaseComponentAwakeSystem: AwakeSystem<RobotCaseComponent>
+        public static void Awake(this RobotCaseComponent self)
         {
-            protected override void Awake(RobotCaseComponent self)
-            {
-                RobotCaseComponent.Instance = self;
-            }
+            RobotCaseComponent.Instance = self;
         }
 
         [ObjectSystem]
-        public class RobotCaseComponentDestroySystem: DestroySystem<RobotCaseComponent>
+        public static void Destroy(this RobotCaseComponent self)
         {
-            protected override void Destroy(RobotCaseComponent self)
-            {
-                RobotCaseComponent.Instance = null;
-            }
+            RobotCaseComponent.Instance = null;
         }
         
         public static int GetN(this RobotCaseComponent self)
