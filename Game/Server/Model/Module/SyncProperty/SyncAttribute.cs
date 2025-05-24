@@ -30,4 +30,17 @@ namespace SyncFramework
         // 获取脏数据数量
         int DirtyCount { get; }
     }
+
+    // 添加泛型支持
+    public interface ISyncable<T> : ISyncable where T : class, ISyncable<T>
+    {
+        int ClassId { get; }
+    }
+
+    // 同步集合接口
+    public interface ISyncCollection
+    {
+        void SetChangeCallback(int fieldId, System.Action<int, CollectionChange> callback);
+        void ApplyChanges(System.Collections.Generic.List<CollectionChange> changes);
+    }
 }

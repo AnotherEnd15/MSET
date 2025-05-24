@@ -9,7 +9,7 @@ namespace ET.Proto;
 // ReSharper disable InconsistentNaming
 	[ResponseType(typeof(DP2Any_DBOperationResponse))]
 	[Message(10001)]
-	public partial class Any2DP_DBOperationRequest : IActorRequest
+	public partial class Any2DP_DBOperationRequest : Object, IActorRequest
 	{
 		public int RpcId { get; set; }
 
@@ -17,7 +17,7 @@ namespace ET.Proto;
 	}
 
 	[Message(10002)]
-	public partial class DP2Any_DBOperationResponse : IActorResponse
+	public partial class DP2Any_DBOperationResponse : Object, IActorResponse
 	{
 		public int RpcId { get; set; }
 
@@ -30,14 +30,14 @@ namespace ET.Proto;
 
 	[ResponseType(typeof(DP2Any_QuerySavingCountResponse))]
 	[Message(10003)]
-	public partial class Any2DP_QuerySavingCountRequest : IActorRequest
+	public partial class Any2DP_QuerySavingCountRequest : Object, IActorRequest
 	{
 		public int RpcId { get; set; }
 
 	}
 
 	[Message(10004)]
-	public partial class DP2Any_QuerySavingCountResponse : IActorResponse
+	public partial class DP2Any_QuerySavingCountResponse : Object, IActorResponse
 	{
 		public int RpcId { get; set; }
 

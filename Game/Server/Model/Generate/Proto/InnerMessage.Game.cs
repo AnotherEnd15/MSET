@@ -9,7 +9,7 @@ namespace ET.Proto;
 // ReSharper disable InconsistentNaming
 	[ResponseType(typeof(Game2G_EnterGameResponse))]
 	[Message(10005)]
-	public partial class G2Game_EnterGameRequest : IActorRequest
+	public partial class G2Game_EnterGameRequest : Object, IActorRequest
 	{
 		public int RpcId { get; set; }
 
@@ -21,7 +21,7 @@ namespace ET.Proto;
 	}
 
 	[Message(10006)]
-	public partial class Game2G_EnterGameResponse : IActorResponse
+	public partial class Game2G_EnterGameResponse : Object, IActorResponse
 	{
 		public int RpcId { get; set; }
 
@@ -33,7 +33,7 @@ namespace ET.Proto;
 	}
 
 	[Message(10007)]
-	public partial class G2Game_PlayerSessionClose : IActorMessage
+	public partial class G2Game_PlayerSessionClose : Object, IActorMessage
 	{
 		public long SessionId { get; set; }
 	}

@@ -9,7 +9,7 @@ namespace ET.Proto;
 // ReSharper disable InconsistentNaming
 	[ResponseType(typeof(ObjectQueryResponse))]
 	[Message(10012)]
-	public partial class ObjectQueryRequest : IActorRequest
+	public partial class ObjectQueryRequest : Object, IActorRequest
 	{
 		public int RpcId { get; set; }
 
@@ -19,7 +19,7 @@ namespace ET.Proto;
 	}
 
 	[Message(10013)]
-	public partial class ObjectQueryResponse : IActorResponse
+	public partial class ObjectQueryResponse : Object, IActorResponse
 	{
 		public int RpcId { get; set; }
 
@@ -32,14 +32,14 @@ namespace ET.Proto;
 
 	[ResponseType(typeof(A2M_Reload))]
 	[Message(10014)]
-	public partial class M2A_Reload : IActorRequest
+	public partial class M2A_Reload : Object, IActorRequest
 	{
 		public int RpcId { get; set; }
 
 	}
 
 	[Message(10015)]
-	public partial class A2M_Reload : IActorResponse
+	public partial class A2M_Reload : Object, IActorResponse
 	{
 		public int RpcId { get; set; }
 
@@ -51,14 +51,14 @@ namespace ET.Proto;
 
 	[ResponseType(typeof(G2G_LockResponse))]
 	[Message(10016)]
-	public partial class G2G_LockRequest : IActorRequest
+	public partial class G2G_LockRequest : Object, IActorRequest
 	{
 		public int RpcId { get; set; }
 
 	}
 
 	[Message(10017)]
-	public partial class G2G_LockResponse : IActorResponse
+	public partial class G2G_LockResponse : Object, IActorResponse
 	{
 		public int RpcId { get; set; }
 
@@ -70,7 +70,7 @@ namespace ET.Proto;
 
 	[ResponseType(typeof(G2G_LockReleaseResponse))]
 	[Message(10018)]
-	public partial class G2G_LockReleaseRequest : IActorRequest
+	public partial class G2G_LockReleaseRequest : Object, IActorRequest
 	{
 		public int RpcId { get; set; }
 
@@ -80,7 +80,7 @@ namespace ET.Proto;
 	}
 
 	[Message(10019)]
-	public partial class G2G_LockReleaseResponse : IActorResponse
+	public partial class G2G_LockReleaseResponse : Object, IActorResponse
 	{
 		public int RpcId { get; set; }
 
@@ -92,7 +92,7 @@ namespace ET.Proto;
 
 	[ResponseType(typeof(ObjectAddResponse))]
 	[Message(10020)]
-	public partial class ObjectAddRequest : IActorRequest
+	public partial class ObjectAddRequest : Object, IActorRequest
 	{
 		public int RpcId { get; set; }
 
@@ -102,7 +102,7 @@ namespace ET.Proto;
 	}
 
 	[Message(10021)]
-	public partial class ObjectAddResponse : IActorResponse
+	public partial class ObjectAddResponse : Object, IActorResponse
 	{
 		public int RpcId { get; set; }
 
@@ -114,7 +114,7 @@ namespace ET.Proto;
 
 	[ResponseType(typeof(ObjectLockResponse))]
 	[Message(10022)]
-	public partial class ObjectLockRequest : IActorRequest
+	public partial class ObjectLockRequest : Object, IActorRequest
 	{
 		public int RpcId { get; set; }
 
@@ -126,7 +126,7 @@ namespace ET.Proto;
 	}
 
 	[Message(10023)]
-	public partial class ObjectLockResponse : IActorResponse
+	public partial class ObjectLockResponse : Object, IActorResponse
 	{
 		public int RpcId { get; set; }
 
@@ -138,7 +138,7 @@ namespace ET.Proto;
 
 	[ResponseType(typeof(ObjectUnLockResponse))]
 	[Message(10024)]
-	public partial class ObjectUnLockRequest : IActorRequest
+	public partial class ObjectUnLockRequest : Object, IActorRequest
 	{
 		public int RpcId { get; set; }
 
@@ -150,7 +150,7 @@ namespace ET.Proto;
 	}
 
 	[Message(10025)]
-	public partial class ObjectUnLockResponse : IActorResponse
+	public partial class ObjectUnLockResponse : Object, IActorResponse
 	{
 		public int RpcId { get; set; }
 
@@ -162,7 +162,7 @@ namespace ET.Proto;
 
 	[ResponseType(typeof(ObjectRemoveResponse))]
 	[Message(10026)]
-	public partial class ObjectRemoveRequest : IActorRequest
+	public partial class ObjectRemoveRequest : Object, IActorRequest
 	{
 		public int RpcId { get; set; }
 
@@ -170,7 +170,7 @@ namespace ET.Proto;
 	}
 
 	[Message(10027)]
-	public partial class ObjectRemoveResponse : IActorResponse
+	public partial class ObjectRemoveResponse : Object, IActorResponse
 	{
 		public int RpcId { get; set; }
 
@@ -182,7 +182,7 @@ namespace ET.Proto;
 
 	[ResponseType(typeof(ObjectGetResponse))]
 	[Message(10028)]
-	public partial class ObjectGetRequest : IActorRequest
+	public partial class ObjectGetRequest : Object, IActorRequest
 	{
 		public int RpcId { get; set; }
 
@@ -190,7 +190,7 @@ namespace ET.Proto;
 	}
 
 	[Message(10029)]
-	public partial class ObjectGetResponse : IActorResponse
+	public partial class ObjectGetResponse : Object, IActorResponse
 	{
 		public int RpcId { get; set; }
 
@@ -203,7 +203,7 @@ namespace ET.Proto;
 
 	[ResponseType(typeof(BM2Game_AllocSceneResponse))]
 	[Message(10030)]
-	public partial class Game2BM_AllocSceneRequest : IActorRequest
+	public partial class Game2BM_AllocSceneRequest : Object, IActorRequest
 	{
 		public int RpcId { get; set; }
 
@@ -211,7 +211,7 @@ namespace ET.Proto;
 	}
 
 	[Message(10031)]
-	public partial class BM2Game_AllocSceneResponse : IActorResponse
+	public partial class BM2Game_AllocSceneResponse : Object, IActorResponse
 	{
 		public int RpcId { get; set; }
 
@@ -224,7 +224,7 @@ namespace ET.Proto;
 
 	[ResponseType(typeof(B2BM_AllocSceneResponse))]
 	[Message(10032)]
-	public partial class BM2B_AllocSceneRequest : IActorRequest
+	public partial class BM2B_AllocSceneRequest : Object, IActorRequest
 	{
 		public int RpcId { get; set; }
 
@@ -232,7 +232,7 @@ namespace ET.Proto;
 	}
 
 	[Message(10033)]
-	public partial class B2BM_AllocSceneResponse : IActorResponse
+	public partial class B2BM_AllocSceneResponse : Object, IActorResponse
 	{
 		public int RpcId { get; set; }
 
@@ -244,7 +244,7 @@ namespace ET.Proto;
 	}
 
 	[Message(10034)]
-	public partial class B2BM_DungeonDispose : IActorMessage
+	public partial class B2BM_DungeonDispose : Object, IActorMessage
 	{
 		public uint MapId { get; set; }
 

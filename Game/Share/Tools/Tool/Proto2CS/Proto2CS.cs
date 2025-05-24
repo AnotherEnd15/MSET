@@ -222,6 +222,10 @@ namespace ET
                         }
                     }
                 }
+                else
+                {
+                    definition.BaseClass = "Object";
+                }
 
                 // 处理类定义，包括继承和接口实现
                 string classDefinition = $"public partial class {definition.Name}";

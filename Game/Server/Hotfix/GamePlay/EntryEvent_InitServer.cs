@@ -8,6 +8,7 @@ using ET.Helper;
 using ET.Module;
 using ET.Module.Quartz;
 using MongoDB.Driver;
+using SyncFramework;
 using YamlDotNet.RepresentationModel;
 
 namespace ET
