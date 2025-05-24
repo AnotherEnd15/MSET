@@ -1,27 +1,34 @@
 ﻿using System;
+using System.Buffers;
 using System.Collections.Generic;
 using System.IO;
 
 namespace ET
 {
-    public class CircularBuffer: Stream
+    /// <summary>
+    /// 循环缓冲区，用于网络数据的流式处理
+    /// 支持数据的连续读写，自动管理内存块的分配和回收
+    /// 使用ArrayPool<byte>优化内存使用，减少GC压力
+    /// 实现Stream接口，支持标准的流操作
+    /// 内部使用队列管理多个固定大小的内存块
+    /// </summary>
+    public class CircularBuffer : Stream
     {
         public int ChunkSize = 8192;
 
         private readonly Queue<byte[]> bufferQueue = new Queue<byte[]>();
-
         private readonly Queue<byte[]> bufferCache = new Queue<byte[]>();
+        private static readonly ArrayPool<byte> ArrayPool = ArrayPool<byte>.Shared;
 
         public int LastIndex { get; set; }
-
         public int FirstIndex { get; set; }
-		
+        
         private byte[] lastBuffer;
 
-	    public CircularBuffer()
-	    {
-		    this.AddLast();
-	    }
+        public CircularBuffer()
+        {
+            this.AddLast();
+        }
 
         public override long Length
         {
@@ -38,7 +45,7 @@ namespace ET
                 }
                 if (c < 0)
                 {
-					Log.GetLogger().Error("CircularBuffer count < 0: {0}, {1}, {2}".Fmt(this.bufferQueue.Count, this.LastIndex, this.FirstIndex));
+                    Log.GetLogger().Error("CircularBuffer count < 0: {0}, {1}, {2}".Fmt(this.bufferQueue.Count, this.LastIndex, this.FirstIndex));
                 }
                 return c;
             }
@@ -53,7 +60,7 @@ namespace ET
             }
             else
             {
-                buffer = new byte[ChunkSize];
+                buffer = ArrayPool.Rent(ChunkSize);
             }
             this.bufferQueue.Enqueue(buffer);
             this.lastBuffer = buffer;
@@ -61,7 +68,15 @@ namespace ET
 
         public void RemoveFirst()
         {
-            this.bufferCache.Enqueue(bufferQueue.Dequeue());
+            var buffer = bufferQueue.Dequeue();
+            if (this.bufferCache.Count < 10) // 保持适量的缓存，避免频繁申请内存
+            {
+                this.bufferCache.Enqueue(buffer);
+            }
+            else
+            {
+                ArrayPool.Return(buffer);
+            }
         }
 
         public byte[] First
@@ -88,156 +103,123 @@ namespace ET
             }
         }
 
-		/// <summary>
-		/// 从CircularBuffer读到stream中
-		/// </summary>
-		/// <param name="stream"></param>
-		/// <returns></returns>
-		//public async ETTask ReadAsync(Stream stream)
-	    //{
-		//    long buffLength = this.Length;
-		//	int sendSize = this.ChunkSize - this.FirstIndex;
-		//    if (sendSize > buffLength)
-		//    {
-		//	    sendSize = (int)buffLength;
-		//    }
-		//	
-		//    await stream.WriteAsync(this.First, this.FirstIndex, sendSize);
-		//    
-		//    this.FirstIndex += sendSize;
-		//    if (this.FirstIndex == this.ChunkSize)
-		//    {
-		//	    this.FirstIndex = 0;
-		//	    this.RemoveFirst();
-		//    }
-		//}
-
-	    // 从CircularBuffer读到stream
-	    public void Read(Stream stream, int count)
-	    {
-		    if (count > this.Length)
-		    {
-			    throw new Exception($"bufferList length < count, {Length} {count}");
-		    }
-
-		    int alreadyCopyCount = 0;
-		    while (alreadyCopyCount < count)
-		    {
-			    int n = count - alreadyCopyCount;
-			    if (ChunkSize - this.FirstIndex > n)
-			    {
-				    stream.Write(this.First, this.FirstIndex, n);
-				    this.FirstIndex += n;
-				    alreadyCopyCount += n;
-			    }
-			    else
-			    {
-				    stream.Write(this.First, this.FirstIndex, ChunkSize - this.FirstIndex);
-				    alreadyCopyCount += ChunkSize - this.FirstIndex;
-				    this.FirstIndex = 0;
-				    this.RemoveFirst();
-			    }
-		    }
-	    }
-	    
-	    // 从stream写入CircularBuffer
-	    public void Write(Stream stream)
-		{
-			int count = (int)(stream.Length - stream.Position);
-			
-			int alreadyCopyCount = 0;
-			while (alreadyCopyCount < count)
-			{
-				if (this.LastIndex == ChunkSize)
-				{
-					this.AddLast();
-					this.LastIndex = 0;
-				}
-
-				int n = count - alreadyCopyCount;
-				if (ChunkSize - this.LastIndex > n)
-				{
-					stream.ReadExactly(this.lastBuffer, this.LastIndex, n);
-					this.LastIndex += count - alreadyCopyCount;
-					alreadyCopyCount += n;
-				}
-				else
-				{
-					stream.ReadExactly(this.lastBuffer, this.LastIndex, ChunkSize - this.LastIndex);
-					alreadyCopyCount += ChunkSize - this.LastIndex;
-					this.LastIndex = ChunkSize;
-				}
-			}
-		}
-	    
-
-	    /// <summary>
-		///  从stream写入CircularBuffer
-		/// </summary>
-		/// <param name="stream"></param>
-		/// <returns></returns>
-		//public async ETTask<int> WriteAsync(Stream stream)
-	    //{
-		//    int size = this.ChunkSize - this.LastIndex;
-		//    
-		//    int n = await stream.ReadAsync(this.Last, this.LastIndex, size);
-//
-		//    if (n == 0)
-		//    {
-		//	    return 0;
-		//    }
-//
-		//    this.LastIndex += n;
-//
-		//    if (this.LastIndex == this.ChunkSize)
-		//    {
-		//	    this.AddLast();
-		//	    this.LastIndex = 0;
-		//    }
-//
-		//    return n;
-	    //}
-
-	    // 把CircularBuffer中数据写入buffer
-        public override int Read(byte[] buffer, int offset, int count)
+        /// <summary>
+        /// 使用Span<T>进行高效的数据读取，避免内存拷贝
+        /// </summary>
+        public void Read(Stream stream, int count)
         {
-	        if (buffer.Length < offset + count)
-	        {
-		        throw new Exception($"bufferList length < coutn, buffer length: {buffer.Length} {offset} {count}");
-	        }
-
-	        long length = this.Length;
-			if (length < count)
+            if (count > this.Length)
             {
-	            count = (int)length;
+                throw new Exception($"bufferList length < count, {Length} {count}");
             }
 
             int alreadyCopyCount = 0;
             while (alreadyCopyCount < count)
             {
                 int n = count - alreadyCopyCount;
-				if (ChunkSize - this.FirstIndex > n)
+                int availableInCurrentChunk = ChunkSize - this.FirstIndex;
+                
+                if (availableInCurrentChunk > n)
                 {
-                    Array.Copy(this.First, this.FirstIndex, buffer, alreadyCopyCount + offset, n);
+                    var span = new ReadOnlySpan<byte>(this.First, this.FirstIndex, n);
+                    stream.Write(span);
                     this.FirstIndex += n;
                     alreadyCopyCount += n;
                 }
                 else
                 {
-                    Array.Copy(this.First, this.FirstIndex, buffer, alreadyCopyCount + offset, ChunkSize - this.FirstIndex);
-                    alreadyCopyCount += ChunkSize - this.FirstIndex;
+                    var span = new ReadOnlySpan<byte>(this.First, this.FirstIndex, availableInCurrentChunk);
+                    stream.Write(span);
+                    alreadyCopyCount += availableInCurrentChunk;
+                    this.FirstIndex = 0;
+                    this.RemoveFirst();
+                }
+            }
+        }
+        
+        /// <summary>
+        /// 使用Span<T>进行高效的数据写入，避免内存拷贝
+        /// </summary>
+        public void Write(Stream stream)
+        {
+            int count = (int)(stream.Length - stream.Position);
+            
+            int alreadyCopyCount = 0;
+            while (alreadyCopyCount < count)
+            {
+                if (this.LastIndex == ChunkSize)
+                {
+                    this.AddLast();
+                    this.LastIndex = 0;
+                }
+
+                int n = count - alreadyCopyCount;
+                int availableInCurrentChunk = ChunkSize - this.LastIndex;
+                
+                if (availableInCurrentChunk > n)
+                {
+                    var span = new Span<byte>(this.lastBuffer, this.LastIndex, n);
+                    stream.ReadExactly(span);
+                    this.LastIndex += n;
+                    alreadyCopyCount += n;
+                }
+                else
+                {
+                    var span = new Span<byte>(this.lastBuffer, this.LastIndex, availableInCurrentChunk);
+                    stream.ReadExactly(span);
+                    alreadyCopyCount += availableInCurrentChunk;
+                    this.LastIndex = ChunkSize;
+                }
+            }
+        }
+
+        public override int Read(byte[] buffer, int offset, int count)
+        {
+            if (buffer.Length < offset + count)
+            {
+                throw new Exception($"bufferList length < count, buffer length: {buffer.Length} offset: {offset} count: {count}");
+            }
+
+            long length = this.Length;
+            if (length == 0)
+            {
+                return 0;
+            }
+
+            int n = (int)Math.Min(count, length);
+
+            if (ChunkSize - this.FirstIndex >= n)
+            {
+                Array.Copy(this.First, this.FirstIndex, buffer, offset, n);
+                this.FirstIndex += n;
+                if (this.FirstIndex == ChunkSize)
+                {
+                    this.FirstIndex = 0;
+                    this.RemoveFirst();
+                }
+                return n;
+            }
+
+            int alreadyCopyCount = 0;
+            while (alreadyCopyCount < n)
+            {
+                int countToCopy = Math.Min(n - alreadyCopyCount, ChunkSize - this.FirstIndex);
+                Array.Copy(this.First, this.FirstIndex, buffer, offset + alreadyCopyCount, countToCopy);
+                alreadyCopyCount += countToCopy;
+                this.FirstIndex += countToCopy;
+                if (this.FirstIndex == ChunkSize)
+                {
                     this.FirstIndex = 0;
                     this.RemoveFirst();
                 }
             }
 
-	        return count;
+            return n;
         }
 
-	    // 把buffer写入CircularBuffer中
         public override void Write(byte[] buffer, int offset, int count)
         {
-	        int alreadyCopyCount = 0;
+            int alreadyCopyCount = 0;
             while (alreadyCopyCount < count)
             {
                 if (this.LastIndex == ChunkSize)
@@ -249,58 +231,59 @@ namespace ET
                 int n = count - alreadyCopyCount;
                 if (ChunkSize - this.LastIndex > n)
                 {
-                    Array.Copy(buffer, alreadyCopyCount + offset, this.lastBuffer, this.LastIndex, n);
-                    this.LastIndex += count - alreadyCopyCount;
+                    Array.Copy(buffer, offset + alreadyCopyCount, this.lastBuffer, this.LastIndex, n);
+                    this.LastIndex += n;
                     alreadyCopyCount += n;
                 }
                 else
                 {
-                    Array.Copy(buffer, alreadyCopyCount + offset, this.lastBuffer, this.LastIndex, ChunkSize - this.LastIndex);
+                    Array.Copy(buffer, offset + alreadyCopyCount, this.lastBuffer, this.LastIndex, ChunkSize - this.LastIndex);
                     alreadyCopyCount += ChunkSize - this.LastIndex;
                     this.LastIndex = ChunkSize;
                 }
             }
         }
 
-	    public override void Flush()
-	    {
-		    throw new NotImplementedException();
-		}
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                // 归还所有租用的数组
+                while (this.bufferQueue.Count > 0)
+                {
+                    var buffer = this.bufferQueue.Dequeue();
+                    ArrayPool.Return(buffer);
+                }
+                
+                while (this.bufferCache.Count > 0)
+                {
+                    var buffer = this.bufferCache.Dequeue();
+                    ArrayPool.Return(buffer);
+                }
+            }
+            base.Dispose(disposing);
+        }
 
-	    public override long Seek(long offset, SeekOrigin origin)
-	    {
-			throw new NotImplementedException();
-	    }
+        public override void Flush()
+        {
+        }
 
-	    public override void SetLength(long value)
-	    {
-		    throw new NotImplementedException();
-		}
+        public override long Seek(long offset, SeekOrigin origin)
+        {
+            throw new NotSupportedException();
+        }
 
-	    public override bool CanRead
-	    {
-		    get
-		    {
-			    return true;
-		    }
-	    }
+        public override void SetLength(long value)
+        {
+            throw new NotSupportedException();
+        }
 
-	    public override bool CanSeek
-	    {
-		    get
-		    {
-			    return false;
-		    }
-	    }
+        public override bool CanRead => true;
 
-	    public override bool CanWrite
-	    {
-		    get
-		    {
-			    return true;
-		    }
-	    }
+        public override bool CanSeek => false;
 
-	    public override long Position { get; set; }
+        public override bool CanWrite => true;
+
+        public override long Position { get; set; }
     }
 }

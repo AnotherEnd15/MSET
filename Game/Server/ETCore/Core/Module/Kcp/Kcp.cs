@@ -63,6 +63,9 @@ namespace ET
         [DllImport(KcpDLL, CallingConvention=CallingConvention.Cdecl)]
         private static extern int ikcp_wndsize(IntPtr kcp, int sndwnd, int rcvwnd);
         
+        [DllImport(KcpDLL, CallingConvention=CallingConvention.Cdecl)]
+        private static extern int ikcp_setstream(IntPtr kcp, int stream);
+        
         public static uint KcpCheck(IntPtr kcp, uint current)
         {
             if (kcp == IntPtr.Zero)
@@ -226,6 +229,15 @@ namespace ET
                 throw new Exception($"kcp error, kcp point is zero");
             }
             return ikcp_wndsize(kcp, sndwnd, rcvwnd);
+        }
+        
+        public static int KcpSetstream(IntPtr kcp, int stream)
+        {
+            if (kcp == IntPtr.Zero)
+            {
+                throw new Exception($"kcp error, kcp point is zero");
+            }
+            return ikcp_setstream(kcp, stream);
         }
     }
 }

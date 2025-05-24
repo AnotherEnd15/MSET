@@ -16,11 +16,12 @@
         public const int ERR_TChannelRecvError = 100214;
         public const int ERR_MessageSocketParserError = 100215;
         public const int ERR_KcpNotFoundChannel = 100216;
+        public const int ERR_KcpRecvError = 100217;
 
-        public const int ERR_WebsocketSendError = 100217;
-        public const int ERR_WebsocketPeerReset = 100218;
-        public const int ERR_WebsocketMessageTooBig = 100219;
-        public const int ERR_WebsocketRecvError = 100220;
+        public const int ERR_WebsocketSendError = 100218;
+        public const int ERR_WebsocketPeerReset = 100219;
+        public const int ERR_WebsocketMessageTooBig = 100220;
+        public const int ERR_WebsocketRecvError = 100221;
         
         public const int ERR_KcpReadNotSame = 100230;
         public const int ERR_KcpSplitError = 100231;

@@ -4,7 +4,7 @@ using System.Net;
 
 namespace ET
 {
-	public abstract class AChannel: IDisposable
+	public abstract class AChannel : IDisposable
 	{
 		public long Id;
 		
@@ -14,14 +14,7 @@ namespace ET
 		
 		public IPEndPoint RemoteAddress { get; set; }
 
-		
-		public bool IsDisposed
-		{
-			get
-			{
-				return this.Id == 0;	
-			}
-		}
+		public bool IsDisposed => this.Id == 0;
 
 		public abstract void Dispose();
 	}
